@@ -10,39 +10,68 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      scroll-behavior: smooth;
     }
 
     body {
       font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #0f172a, #1e293b);
+      background: radial-gradient(circle at top, #1e293b, #0f172a);
       color: white;
       overflow-x: hidden;
     }
 
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeIn 1s ease forwards;
+    /* NAVBAR */
+    .nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 30px;
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
     }
 
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 15px;
+      font-size: 14px;
+      opacity: 0.8;
     }
 
+    .nav a:hover {
+      opacity: 1;
+      color: #3b82f6;
+    }
+
+    /* HERO */
     header {
       text-align: center;
-      padding: 100px 20px;
+      padding: 140px 20px 80px;
+    }
+
+    .avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: #3b82f6;
+      margin: auto;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      font-weight: bold;
     }
 
     header h1 {
-      font-size: 58px;
+      font-size: 55px;
     }
 
     header p {
-      font-size: 20px;
+      font-size: 18px;
       opacity: 0.85;
       margin-top: 10px;
     }
@@ -63,6 +92,12 @@
       background: #2563eb;
     }
 
+    .btn.secondary {
+      background: transparent;
+      border: 1px solid #3b82f6;
+      margin-left: 10px;
+    }
+
     .container {
       max-width: 1000px;
       margin: auto;
@@ -70,11 +105,11 @@
     }
 
     section {
-      margin-bottom: 70px;
+      margin-bottom: 80px;
     }
 
     h2 {
-      font-size: 28px;
+      font-size: 26px;
       margin-bottom: 20px;
       border-left: 4px solid #3b82f6;
       padding-left: 10px;
@@ -99,104 +134,128 @@
       padding: 8px 12px;
       border-radius: 20px;
       margin: 5px;
-      font-size: 14px;
+      font-size: 13px;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
     }
 
     footer {
       text-align: center;
       padding: 40px;
-      opacity: 0.7;
-      font-size: 14px;
+      opacity: 0.6;
+      font-size: 13px;
     }
+
+    /* animation */
+    .fade {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
   </style>
 </head>
 
 <body>
 
-<header class="fade-in">
-  <h1>Siaci Abdennour 👋</h1>
-  <p>Responsable adjoint Fitness Park | Développeur en formation | Informatique & Data</p>
-  <a href="#contact" class="btn">Me contacter</a>
+<div class="nav">
+  <div><strong>Abdennour</strong></div>
+  <div>
+    <a href="#about">Profil</a>
+    <a href="#skills">Compétences</a>
+    <a href="#exp">Expérience</a>
+    <a href="#projects">Projets</a>
+    <a href="#contact">Contact</a>
+  </div>
+</div>
+
+<header class="fade">
+  <div class="avatar">SA</div>
+  <h1>Siaci Abdennour</h1>
+  <p>Responsable adjoint Fitness Park | Développeur Web en formation | Data & Tech</p>
+
+  <a class="btn" href="#contact">Me contacter</a>
+  <a class="btn secondary" href="#projects">Voir mes projets</a>
 </header>
 
 <div class="container">
 
-  <section class="fade-in">
+  <section id="about" class="fade">
     <h2>Profil</h2>
     <div class="card">
-      23 ans, passionné par l’informatique, le développement web et la gestion. J’aime apprendre, construire des projets concrets et évoluer dans le domaine du digital et de la tech.
+      23 ans, passionné par l’informatique, le développement web et la gestion. J’aime construire des projets concrets et évoluer dans le digital.
     </div>
   </section>
 
-  <section class="fade-in">
-    <h2>Formation</h2>
-    <div class="card">
-      <strong>BTS SAM (Support à l’Action Managériale)</strong> - Mention Bien
-    </div>
-    <div class="card">
-      <strong>BUT Informatique</strong> - IUT Aix-en-Provence (bases en SQL, Python, réseaux)
-    </div>
-    <div class="card">
-      <strong>BAC STI2D</strong> - Mention Bien
-    </div>
-  </section>
-
-  <section class="fade-in">
-    <h2>Compétences techniques</h2>
+  <section id="skills" class="fade">
+    <h2>Compétences</h2>
     <div class="skills">
       <span>HTML</span>
       <span>CSS</span>
+      <span>JavaScript</span>
       <span>SQL</span>
       <span>Python</span>
-      <span>React (en apprentissage)</span>
-      <span>Java (en apprentissage)</span>
-      <span>Excel (avancé)</span>
-      <span>Réseaux (bases)</span>
+      <span>Java</span>
+      <span>React</span>
+      <span>Excel</span>
+      <span>Réseaux</span>
+      <span>Anglais Bilingue</span>
     </div>
   </section>
 
-  <section class="fade-in">
-    <h2>Expérience professionnelle</h2>
+  <section id="exp" class="fade">
+    <h2>Expérience</h2>
     <div class="card">
       <strong>Responsable adjoint - Fitness Park</strong><br/>
-      - Gestion de la satisfaction client<br/>
-      - Gestion des abonnements<br/>
-      - Gestion des stocks et commandes<br/>
-      - Support opérationnel et organisationnel
+      Gestion client, abonnements, stocks et opérations quotidiennes.
     </div>
   </section>
 
-  <section class="fade-in">
-    <h2>Langues</h2>
-    <div class="card">
-      Anglais : Bilingue (niveau professionnel)
-    </div>
-  </section>
-
-  <section class="fade-in">
+  <section id="projects" class="fade">
     <h2>Projets</h2>
-    <div class="card">
-      <strong>Projet Page Blanche</strong><br/>
-      Développement d’une plateforme collaborative où les utilisateurs peuvent acheter des pixels pour créer une toile géante interactive et artistique.
-    </div>
 
-    <div class="card">
-      Projets en développement en Java, React et SQL (apprentissage actif)
+    <div class="projects">
+      <div class="card">
+        <h3>Page Blanche</h3>
+        <p>Plateforme collaborative où les utilisateurs achètent des pixels pour créer une toile géante interactive.</p>
+      </div>
+
+      <div class="card">
+        <h3>Projets Web</h3>
+        <p>Développement de sites et interfaces avec HTML/CSS/JS.</p>
+      </div>
+
+      <div class="card">
+        <h3>Apprentissage Java/React</h3>
+        <p>Formation continue sur des projets modernes.</p>
+      </div>
     </div>
   </section>
 
-  <section class="fade-in" id="contact">
+  <section id="contact" class="fade">
     <h2>Contact</h2>
     <div class="card">
-      Email : tonemail@example.com<br/>
-      LinkedIn : à ajouter
+      Email : tonemail@example.com <br/>
+      LinkedIn : à ajouter <br/><br/>
+      <a class="btn" href="#">Télécharger CV</a>
     </div>
   </section>
 
 </div>
 
 <footer>
-  © 2026 - Siaci Abdennour - Tous droits réservés
+  © 2026 - Siaci Abdennour - Portfolio professionnel
 </footer>
 
 </body>
