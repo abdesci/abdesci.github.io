@@ -1,30 +1,87 @@
+```html
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:linear-gradient(135deg,#0f172a,#1e293b);
+  color:white;
+}
+
+.nav{
+  position:fixed;
+  top:0;
+  width:100%;
+  display:flex;
+  justify-content:center;
+  gap:25px;
+  padding:15px;
+  background:rgba(0,0,0,0.4);
+  backdrop-filter:blur(10px);
+}
+
+.nav a{
+  color:white;
+  text-decoration:none;
+  opacity:0.7;
+  font-size:14px;
+}
+
+.nav a:hover{
+  opacity:1;
+  color:#3b82f6;
+}
+
+.container{
+  padding-top:100px;
+  max-width:900px;
+  margin:auto;
+  text-align:center;
+}
+
+.card{
+  background:rgba(255,255,255,0.05);
+  padding:20px;
+  border-radius:12px;
+  margin:15px 0;
+}
+
+h1{font-size:40px;}
+h2{margin-top:40px;}
+</style>
+```
+
+
+
+```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <title>Siaci Abdennour - Portfolio</title>
+<meta charset="UTF-8">
+<title>Abdennour</title>
 </head>
-<body style="background:#0f172a;color:white;font-family:Arial;text-align:center;">
+<body>
 
-<nav style="padding:20px;">
-  <a href="index.html" style="color:white;margin:10px;">Accueil</a>
-  <a href="experiences.html" style="color:white;margin:10px;">Expériences</a>
-  <a href="formations.html" style="color:white;margin:10px;">Formations</a>
-  <a href="competences.html" style="color:white;margin:10px;">Compétences</a>
-  <a href="projets.html" style="color:white;margin:10px;">Projets</a>
-  <a href="contact.html" style="color:white;margin:10px;">Contact</a>
-</nav>
+<div class="nav">
+  <a href="index.html">Accueil</a>
+  <a href="experiences.html">Expériences</a>
+  <a href="formations.html">Formations</a>
+  <a href="competences.html">Compétences</a>
+  <a href="projets.html">Projets</a>
+  <a href="contact.html">Contact</a>
+</div>
 
-<h1 style="margin-top:80px;font-size:50px;">Siaci Abdennour</h1>
+<div class="container">
+  <h1>Siaci Abdennour</h1>
+  <p>Développeur Informatique | SQL | Java | React</p>
 
-<p style="opacity:0.8;font-size:18px;max-width:700px;margin:auto;">
-Étudiant et passionné d’informatique, spécialisé dans le développement web et les systèmes d’information.
-J’aime transformer des idées en projets concrets et utiles.
-</p>
-
-<a href="projets.html" style="display:inline-block;margin-top:20px;padding:12px 20px;background:#3b82f6;color:white;text-decoration:none;border-radius:8px;">
-Découvrir mes projets
-</a>
+  <div class="card">
+    Profil orienté informatique, passionné par le développement web et la création de projets digitaux.
+  </div>
+</div>
 
 </body>
 </html>
+```
+
+---
+
