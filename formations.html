@@ -6,12 +6,113 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:Segoe UI;background:linear-gradient(120deg,#020617,#0f172a,#020617);background-size:200% 200%;animation:bg 10s infinite alternate;color:white;}
-@keyframes bg{0%{background-position:left;}100%{background-position:right;}}
 
-.nav{position:fixed;top:0;width:100%;display:flex;justify-content:center;gap:30px;padding:20px;background:rgba(0,0,0,0.3);}
-.container{padding-top:150px;max-width:1000px;margin:auto;text-align:center;}
-.card{background:rgba(255,255,255,0.05);padding:20px;border-radius:15px;margin:15px;}
+body{
+  font-family:Segoe UI;
+  background:linear-gradient(120deg,#020617,#0f172a,#020617);
+  background-size:200% 200%;
+  animation:bg 10s infinite alternate;
+  color:white;
+}
+
+@keyframes bg{
+  0%{background-position:left;}
+  100%{background-position:right;}
+}
+
+.nav{
+  position:fixed;
+  top:0;
+  width:100%;
+  display:flex;
+  justify-content:center;
+  gap:30px;
+  padding:20px;
+  background:rgba(0,0,0,0.3);
+  backdrop-filter:blur(12px);
+}
+
+.nav a{
+  color:white;
+  text-decoration:none;
+  opacity:0.7;
+  transition:0.3s;
+}
+
+.nav a:hover{
+  opacity:1;
+  color:#3b82f6;
+}
+
+.container{
+  padding-top:140px;
+  max-width:1000px;
+  margin:auto;
+}
+
+h1{
+  text-align:center;
+  font-size:50px;
+  margin-bottom:40px;
+  background:linear-gradient(90deg,#3b82f6,#60a5fa);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.timeline{
+  position:relative;
+  margin-left:20px;
+}
+
+.timeline::before{
+  content:'';
+  position:absolute;
+  left:10px;
+  top:0;
+  width:3px;
+  height:100%;
+  background:#3b82f6;
+}
+
+.item{
+  margin:40px 0;
+  padding-left:40px;
+  position:relative;
+}
+
+.item::before{
+  content:'';
+  position:absolute;
+  left:0;
+  top:5px;
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  background:#3b82f6;
+}
+
+.card{
+  background:rgba(255,255,255,0.05);
+  padding:20px;
+  border-radius:12px;
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:translateX(10px);
+  box-shadow:0 0 20px rgba(59,130,246,0.4);
+}
+
+.date{
+  opacity:0.6;
+  font-size:14px;
+  margin-bottom:5px;
+}
+
+.desc{
+  opacity:0.8;
+  margin-top:10px;
+}
 </style>
 
 </head>
@@ -31,9 +132,39 @@ body{font-family:Segoe UI;background:linear-gradient(120deg,#020617,#0f172a,#020
 
 <h1>Formations</h1>
 
-<div class="card">BUT Informatique</div>
-<div class="card">BTS SAM</div>
-<div class="card">BAC STI2D mention bien</div>
+<div class="timeline">
+
+<div class="item">
+  <div class="card">
+    <div class="date">2023 - 2024</div>
+    <h2>BUT Informatique — Aix-en-Provence</h2>
+    <p class="desc">
+      Apprentissage des bases du développement : SQL, Python, réseaux.\n      Première approche concrète de la logique de programmation.
+    </p>
+  </div>
+</div>
+
+<div class="item">
+  <div class="card">
+    <div class="date">2024 - 2025</div>
+    <h2>BTS SAM — Mention Bien</h2>
+    <p class="desc">
+      Formation en gestion, organisation et management.\n      Développement de compétences en communication, rigueur et gestion de projet.
+    </p>
+  </div>
+</div>
+
+<div class="item">
+  <div class="card">
+    <div class="date">2021 - 2023</div>
+    <h2>BAC STI2D — Mention Bien</h2>
+    <p class="desc">
+      Formation technologique orientée vers l’ingénierie et les systèmes techniques.\n      Développement de la logique et de la résolution de problèmes.
+    </p>
+  </div>
+</div>
+
+</div>
 
 </div>
 
