@@ -6,10 +6,111 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:Segoe UI;background:linear-gradient(120deg,#020617,#0f172a,#020617);background-size:200% 200%;animation:bg 10s infinite alternate;color:white;}
-.nav{position:fixed;top:0;width:100%;display:flex;justify-content:center;gap:30px;padding:20px;background:rgba(0,0,0,0.3);}
-.container{padding-top:150px;max-width:1000px;margin:auto;text-align:center;}
-.card{background:rgba(255,255,255,0.05);padding:25px;border-radius:15px;margin:20px;}
+
+body{
+  font-family:Segoe UI;
+  background:linear-gradient(120deg,#020617,#0f172a,#020617);
+  background-size:200% 200%;
+  animation:bg 10s infinite alternate;
+  color:white;
+}
+
+@keyframes bg{
+  0%{background-position:left;}
+  100%{background-position:right;}
+}
+
+/* NAV */
+.nav{
+  position:fixed;
+  top:0;
+  width:100%;
+  display:flex;
+  justify-content:center;
+  gap:30px;
+  padding:20px;
+  background:rgba(0,0,0,0.3);
+  backdrop-filter:blur(12px);
+}
+
+.nav a{
+  color:white;
+  text-decoration:none;
+  opacity:0.7;
+}
+
+.nav a:hover{
+  opacity:1;
+  color:#3b82f6;
+}
+
+/* CONTAINER */
+.container{
+  padding-top:140px;
+  max-width:1000px;
+  margin:auto;
+  text-align:center;
+}
+
+h1{
+  font-size:50px;
+  margin-bottom:20px;
+  background:linear-gradient(90deg,#3b82f6,#60a5fa);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* CARD */
+.card{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  padding:30px;
+  border-radius:15px;
+  margin:20px;
+}
+
+/* FORM */
+form{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+
+input, textarea{
+  padding:12px;
+  border-radius:8px;
+  border:none;
+  outline:none;
+  font-family:inherit;
+}
+
+textarea{
+  min-height:120px;
+  resize:none;
+}
+
+/* BUTTON */
+button{
+  padding:12px;
+  border:none;
+  border-radius:8px;
+  background:linear-gradient(90deg,#3b82f6,#60a5fa);
+  color:white;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 20px #3b82f6;
+}
+
+/* EMAIL BOX */
+.email{
+  font-size:18px;
+  margin-bottom:20px;
+  opacity:0.8;
+}
 </style>
 
 </head>
@@ -28,8 +129,28 @@ body{font-family:Segoe UI;background:linear-gradient(120deg,#020617,#0f172a,#020
 
 <h1>Contact</h1>
 
-<div class="card">Email : tonemail@example.com</div>
-<div class="card">LinkedIn : à ajouter</div>
+<div class="card">
+
+<p class="email">📧 Email professionnel : <b>nourabdel345@gmail.com</b></p>
+
+<p>Tu peux m’envoyer un message directement via ce formulaire 👇</p>
+
+<br>
+
+<!-- FORMULAIRE FORMSPREE -->
+<form action="https://formspree.io/f/xpzvyyyy" method="POST">
+
+<input type="text" name="name" placeholder="Ton nom" required>
+
+<input type="email" name="email" placeholder="Ton email" required>
+
+<textarea name="message" placeholder="Ton message..." required></textarea>
+
+<button type="submit">Envoyer le message</button>
+
+</form>
+
+</div>
 
 </div>
 
