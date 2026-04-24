@@ -6,11 +6,16 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-
 body{
   font-family:Segoe UI;
-  background:radial-gradient(circle at top,#1e293b,#020617);
+  background:linear-gradient(120deg,#020617,#0f172a,#020617);
+  background-size:200% 200%;
+  animation:bg 10s infinite alternate;
   color:white;
+}
+@keyframes bg{
+  0%{background-position:left;}
+  100%{background-position:right;}
 }
 
 .nav{
@@ -21,39 +26,45 @@ body{
   justify-content:center;
   gap:30px;
   padding:20px;
-  background:rgba(0,0,0,0.4);
-  backdrop-filter:blur(10px);
+  background:rgba(0,0,0,0.3);
+  backdrop-filter:blur(12px);
 }
-
 .nav a{
   color:white;
   text-decoration:none;
   opacity:0.7;
   transition:0.3s;
 }
-
 .nav a:hover{
   opacity:1;
   color:#3b82f6;
+  transform:scale(1.1);
 }
 
 .container{
-  padding-top:140px;
+  padding-top:150px;
   max-width:1000px;
   margin:auto;
   text-align:center;
 }
 
 .avatar{
-  width:140px;
-  height:140px;
+  width:150px;
+  height:150px;
   border-radius:50%;
   border:3px solid #3b82f6;
   object-fit:cover;
+  transition:0.4s;
 }
+.avatar:hover{transform:scale(1.1);}
 
-h1{font-size:55px;margin:20px 0;}
-.subtitle{opacity:0.7;margin-bottom:30px;}
+h1{
+  font-size:60px;
+  margin:20px 0;
+  background:linear-gradient(90deg,#3b82f6,#60a5fa);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
 
 .card{
   background:rgba(255,255,255,0.05);
@@ -61,22 +72,20 @@ h1{font-size:55px;margin:20px 0;}
   padding:30px;
   border-radius:15px;
   margin:20px;
-  transition:0.3s;
+  transition:0.4s;
 }
-
 .card:hover{
-  transform:translateY(-5px);
-  background:rgba(255,255,255,0.08);
+  transform:translateY(-10px);
+  box-shadow:0 0 30px rgba(59,130,246,0.3);
 }
 
 .btn{
   display:inline-block;
   padding:12px 25px;
-  background:#3b82f6;
+  background:linear-gradient(90deg,#3b82f6,#60a5fa);
   border-radius:8px;
   text-decoration:none;
   color:white;
-  margin-top:15px;
 }
 </style>
 
@@ -98,22 +107,22 @@ h1{font-size:55px;margin:20px 0;}
 <img src="photo.jpg" class="avatar">
 
 <h1>Siaci Abdennour</h1>
-<p class="subtitle">Développeur Web • Java • SQL • React</p>
+<p>Développeur Web • Java • SQL • React</p>
 
 <div class="card">
-Je développe mes compétences en programmation pour créer des projets concrets et évoluer dans le monde du développement informatique.
+Je construis des projets concrets pour évoluer dans le développement informatique.
 </div>
 
 <div class="card">
-<h2>📄 Mon CV</h2>
-<a href="cv.pdf" class="btn">Télécharger mon CV</a>
+<h2>CV</h2>
+<a href="cv.pdf" class="btn">Télécharger</a>
 </div>
 
 <div class="card">
-<h2>🔥 Passions</h2>
-<p>Voyage 🌍 — découvrir le monde</p>
-<p>Fitness 💪 — discipline et progression</p>
-<p>Tech 💻 — créer et innover</p>
+<h2>Passions</h2>
+<p>Voyage 🌍</p>
+<p>Fitness 💪</p>
+<p>Tech 💻</p>
 </div>
 
 </div>
