@@ -6,11 +6,89 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:Segoe UI;background:linear-gradient(120deg,#020617,#0f172a,#020617);background-size:200% 200%;animation:bg 10s infinite alternate;color:white;}
-.nav{position:fixed;top:0;width:100%;display:flex;justify-content:center;gap:30px;padding:20px;background:rgba(0,0,0,0.3);}
-.container{padding-top:150px;max-width:1000px;margin:auto;text-align:center;}
-.card{background:rgba(255,255,255,0.05);padding:25px;border-radius:15px;margin:20px;}
-img{width:100%;border-radius:10px;margin-top:10px;}
+
+body{
+  font-family:Segoe UI;
+  background:linear-gradient(120deg,#020617,#0f172a,#020617);
+  background-size:200% 200%;
+  animation:bg 10s infinite alternate;
+  color:white;
+}
+
+@keyframes bg{
+  0%{background-position:left;}
+  100%{background-position:right;}
+}
+
+.nav{
+  position:fixed;
+  top:0;
+  width:100%;
+  display:flex;
+  justify-content:center;
+  gap:30px;
+  padding:20px;
+  background:rgba(0,0,0,0.3);
+  backdrop-filter:blur(12px);
+}
+
+.nav a{
+  color:white;
+  text-decoration:none;
+  opacity:0.7;
+}
+
+.nav a:hover{
+  opacity:1;
+  color:#3b82f6;
+}
+
+.container{
+  padding-top:140px;
+  max-width:1000px;
+  margin:auto;
+}
+
+h1{
+  text-align:center;
+  font-size:50px;
+  margin-bottom:40px;
+  background:linear-gradient(90deg,#3b82f6,#60a5fa);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.project{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  padding:30px;
+  border-radius:15px;
+  margin:30px 0;
+  transition:0.4s;
+}
+
+.project:hover{
+  transform:translateY(-10px);
+  box-shadow:0 0 30px rgba(59,130,246,0.3);
+}
+
+img{
+  width:100%;
+  border-radius:10px;
+  margin-top:20px;
+}
+
+.tech{
+  margin-top:15px;
+  opacity:0.8;
+  font-size:14px;
+}
+
+.section-title{
+  margin-top:15px;
+  font-weight:bold;
+  color:#3b82f6;
+}
 </style>
 
 </head>
@@ -29,10 +107,61 @@ img{width:100%;border-radius:10px;margin-top:10px;}
 
 <h1>Projets</h1>
 
-<div class="card">
-<h2>Page Blanche</h2>
-<p>Plateforme collaborative de pixels.</p>
+<!-- PROJET 1 -->
+<div class="project">
+
+<h2>🧠 Page Blanche (Projet en cours)</h2>
+
+<p>
+Concept de plateforme interactive où les utilisateurs peuvent acheter des pixels et créer une œuvre collective en temps réel.
+</p>
+
+<div class="section-title">🎯 Objectif</div>
+<p>
+Créer une application web dynamique avec gestion des utilisateurs et interaction en temps réel.
+</p>
+
+<div class="section-title">💻 Compétences utilisées</div>
+<p class="tech">
+HTML • CSS • JavaScript • (React & backend en cours d’apprentissage)
+</p>
+
+<div class="section-title">🚧 Statut</div>
+<p>
+Projet en cours de développement dans le cadre de mon apprentissage.
+</p>
+
+<p>⬇️ Ajoute une image ici</p>
 <img src="projet1.jpg">
+
+</div>
+
+<!-- PROJET 2 (IMPORTANT POUR CRÉDIBILITÉ) -->
+<div class="project">
+
+<h2>💻 Exercices et projets d’apprentissage</h2>
+
+<p>
+Réalisation de plusieurs projets pratiques via Hyperskills pour développer mes compétences en programmation.
+</p>
+
+<div class="section-title">🎯 Objectif</div>
+<p>
+Comprendre la logique de programmation et maîtriser les bases du développement.
+</p>
+
+<div class="section-title">💻 Compétences utilisées</div>
+<p class="tech">
+Java • SQL • logique algorithmique
+</p>
+
+<div class="section-title">📚 Contenu</div>
+<p>
+- Création de programmes en Java  
+- Manipulation de bases de données en SQL  
+- Résolution de problèmes algorithmiques  
+</p>
+
 </div>
 
 </div>
