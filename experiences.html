@@ -6,16 +6,99 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:Segoe UI;background:linear-gradient(120deg,#020617,#0f172a,#020617);background-size:200% 200%;animation:bg 10s infinite alternate;color:white;}
-@keyframes bg{0%{background-position:left;}100%{background-position:right;}}
 
-.nav{position:fixed;top:0;width:100%;display:flex;justify-content:center;gap:30px;padding:20px;background:rgba(0,0,0,0.3);}
-.nav a{color:white;text-decoration:none;opacity:0.7;}
-.nav a:hover{opacity:1;color:#3b82f6;}
+body{
+  font-family:Segoe UI;
+  background:linear-gradient(120deg,#020617,#0f172a,#020617);
+  background-size:200% 200%;
+  animation:bg 10s infinite alternate;
+  color:white;
+}
 
-.container{padding-top:150px;max-width:1000px;margin:auto;text-align:center;}
-.card{background:rgba(255,255,255,0.05);padding:30px;border-radius:15px;margin:20px;}
-.card:hover{transform:translateY(-10px);box-shadow:0 0 20px #3b82f6;}
+@keyframes bg{
+  0%{background-position:left;}
+  100%{background-position:right;}
+}
+
+/* NAV */
+.nav{
+  position:fixed;
+  top:0;
+  width:100%;
+  display:flex;
+  justify-content:center;
+  gap:30px;
+  padding:20px;
+  background:rgba(0,0,0,0.3);
+  backdrop-filter:blur(12px);
+}
+
+.nav a{
+  color:white;
+  text-decoration:none;
+  opacity:0.7;
+  transition:0.3s;
+}
+
+.nav a:hover{
+  opacity:1;
+  color:#3b82f6;
+}
+
+/* CONTAINER */
+.container{
+  padding-top:140px;
+  max-width:1000px;
+  margin:auto;
+}
+
+h1{
+  text-align:center;
+  font-size:50px;
+  margin-bottom:40px;
+  background:linear-gradient(90deg,#3b82f6,#60a5fa);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* CARD */
+.card{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  padding:30px;
+  border-radius:15px;
+  margin:25px 0;
+  transition:0.4s;
+}
+
+.card:hover{
+  transform:translateY(-10px);
+  box-shadow:0 0 30px rgba(59,130,246,0.3);
+}
+
+/* TITRES */
+.role{
+  color:#3b82f6;
+  font-weight:bold;
+  margin-bottom:10px;
+}
+
+.date{
+  opacity:0.6;
+  font-size:14px;
+  margin-bottom:10px;
+}
+
+/* LIST */
+ul{
+  margin-top:10px;
+  padding-left:20px;
+  opacity:0.9;
+}
+
+li{
+  margin-bottom:5px;
+}
 </style>
 
 </head>
@@ -32,12 +115,43 @@ body{font-family:Segoe UI;background:linear-gradient(120deg,#020617,#0f172a,#020
 
 <div class="container">
 
-<h1>Expériences</h1>
+<h1>Expériences professionnelles</h1>
 
+<!-- FITNESS PARK -->
 <div class="card">
-<h2>Fitness Park</h2>
-<p>Responsable adjoint</p>
-<p>Gestion client, abonnements, stock, organisation.</p>
+
+<div class="role">Responsable adjoint — Fitness Park</div>
+<div class="date">Actuellement en poste</div>
+
+<p>
+Gestion opérationnelle d’une salle de sport et accompagnement des équipes au quotidien.
+</p>
+
+<ul>
+<li>Gestion de la satisfaction client</li>
+<li>Suivi des abonnements et encaissements</li>
+<li>Gestion des stocks et commandes</li>
+<li>Organisation interne de la salle</li>
+</ul>
+
+</div>
+
+<!-- VERSION PLUS PRO (SOFT SKILLS CACHEES) -->
+<div class="card">
+
+<div class="role">Compétences développées</div>
+
+<p>
+Cette expérience m’a permis de développer des compétences transférables importantes pour le développement informatique :
+</p>
+
+<ul>
+<li>Organisation et rigueur</li>
+<li>Résolution de problèmes concrets</li>
+<li>Communication client</li>
+<li>Gestion de tâches multiples</li>
+</ul>
+
 </div>
 
 </div>
