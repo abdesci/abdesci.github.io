@@ -37,6 +37,7 @@ body{
   color:white;
   text-decoration:none;
   opacity:0.7;
+  transition:0.3s;
 }
 
 .nav a:hover{
@@ -47,14 +48,14 @@ body{
 /* CONTAINER */
 .container{
   padding-top:140px;
-  max-width:1000px;
+  max-width:900px;
   margin:auto;
   text-align:center;
 }
 
 h1{
   font-size:50px;
-  margin-bottom:20px;
+  margin-bottom:30px;
   background:linear-gradient(90deg,#3b82f6,#60a5fa);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
@@ -64,52 +65,43 @@ h1{
 .card{
   background:rgba(255,255,255,0.05);
   border:1px solid rgba(255,255,255,0.1);
-  padding:30px;
+  padding:35px;
   border-radius:15px;
   margin:20px;
-}
-
-/* FORM */
-form{
-  display:flex;
-  flex-direction:column;
-  gap:15px;
-}
-
-input, textarea{
-  padding:12px;
-  border-radius:8px;
-  border:none;
-  outline:none;
-  font-family:inherit;
-}
-
-textarea{
-  min-height:120px;
-  resize:none;
-}
-
-/* BUTTON */
-button{
-  padding:12px;
-  border:none;
-  border-radius:8px;
-  background:linear-gradient(90deg,#3b82f6,#60a5fa);
-  color:white;
-  cursor:pointer;
   transition:0.3s;
 }
 
-button:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 20px #3b82f6;
+.card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 0 25px rgba(59,130,246,0.3);
 }
 
-/* EMAIL BOX */
+/* EMAIL */
 .email{
-  font-size:18px;
-  margin-bottom:20px;
-  opacity:0.8;
+  font-size:20px;
+  margin:15px 0;
+  color:#cbd5e1;
+}
+
+.email b{
+  color:white;
+}
+
+/* LINK STYLE */
+.link{
+  display:inline-block;
+  margin-top:15px;
+  padding:12px 25px;
+  background:linear-gradient(90deg,#3b82f6,#60a5fa);
+  border-radius:8px;
+  text-decoration:none;
+  color:white;
+  transition:0.3s;
+}
+
+.link:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 20px #3b82f6;
 }
 </style>
 
@@ -131,24 +123,28 @@ button:hover{
 
 <div class="card">
 
-<p class="email">📧 Email professionnel : <b>nourabdel345@gmail.com</b></p>
+<p class="email">📧 Email professionnel</p>
+<p><b>nourabdel345@gmail.com</b></p>
 
-<p>Tu peux m’envoyer un message directement via ce formulaire 👇</p>
+<a class="link" href="mailto:nourabdel345@gmail.com">
+Envoyer un email
+</a>
 
-<br>
+</div>
 
-<!-- FORMULAIRE FORMSPREE -->
-<form action="https://formspree.io/f/xpzvyyyy" method="POST">
+<div class="card">
 
-<input type="text" name="name" placeholder="Ton nom" required>
+<h2>💼 Réseaux professionnels</h2>
 
-<input type="email" name="email" placeholder="Ton email" required>
+<p>Ajoute ici ton LinkedIn quand tu l’auras</p>
 
-<textarea name="message" placeholder="Ton message..." required></textarea>
+</div>
 
-<button type="submit">Envoyer le message</button>
+<div class="card">
 
-</form>
+<h2>⚡ Disponibilité</h2>
+
+<p>Ouvert aux opportunités en développement informatique (stage, alternance, junior dev).</p>
 
 </div>
 
