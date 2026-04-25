@@ -1,0 +1,94 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:Segoe UI;
+  background:linear-gradient(120deg,#020617,#0f172a,#020617);
+  background-size:200% 200%;
+  animation:bg 10s infinite alternate;
+  color:white;
+}
+
+@keyframes bg{
+  0%{background-position:left;}
+  100%{background-position:right;}
+}
+
+/* NAVBAR */
+.nav{
+  position:fixed;
+  top:0;
+  width:100%;
+  display:flex;
+  justify-content:center;
+  gap:30px;
+  padding:20px;
+  background:rgba(0,0,0,0.3);
+  backdrop-filter:blur(12px);
+  z-index:1000;
+}
+
+.nav a{
+  color:white;
+  text-decoration:none;
+  opacity:0.7;
+  transition:0.3s;
+  font-weight:500;
+}
+
+.nav a:hover{
+  opacity:1;
+  color:#3b82f6;
+  transform:scale(1.1);
+}
+
+/* CONTAINER */
+.container{
+  padding-top:140px;
+  max-width:1000px;
+  margin:auto;
+}
+
+/* TITRES */
+h1{
+  text-align:center;
+  font-size:50px;
+  margin-bottom:40px;
+  background:linear-gradient(90deg,#3b82f6,#60a5fa);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* CARDS */
+.card{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  padding:30px;
+  border-radius:15px;
+  margin:20px 0;
+  transition:0.4s;
+}
+
+.card:hover{
+  transform:translateY(-10px);
+  box-shadow:0 0 30px rgba(59,130,246,0.3);
+}
+
+/* ANIMATION */
+.fade-in{
+  animation:fade 1s ease forwards;
+}
+
+@keyframes fade{
+  from{
+    opacity:0;
+    transform:translateY(20px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
