@@ -2,22 +2,19 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Accueil</title>
+<title>Portfolio - Abdennour</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
 body{
   font-family:Segoe UI;
-  background:linear-gradient(120deg,#020617,#0f172a,#020617);
-  background-size:200% 200%;
-  animation:bg 10s infinite alternate;
+  background:radial-gradient(circle at top,#0f172a,#020617);
   color:white;
-}
-
-@keyframes bg{
-  0%{background-position:left;}
-  100%{background-position:right;}
 }
 
 /* NAVBAR */
@@ -29,8 +26,9 @@ body{
   justify-content:center;
   gap:30px;
   padding:20px;
-  background:rgba(0,0,0,0.3);
-  backdrop-filter:blur(12px);
+  background:rgba(0,0,0,0.4);
+  backdrop-filter:blur(15px);
+  z-index:1000;
 }
 
 .nav a{
@@ -38,69 +36,92 @@ body{
   text-decoration:none;
   opacity:0.7;
   transition:0.3s;
+  font-weight:500;
 }
 
 .nav a:hover{
   opacity:1;
-  color:#3b82f6;
-  transform:scale(1.1);
+  color:#60a5fa;
+  transform:translateY(-2px);
 }
 
-/* CONTAINER */
-.container{
-  padding-top:150px;
-  max-width:1000px;
-  margin:auto;
+/* HERO */
+.hero{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
   text-align:center;
+  padding:0 20px;
 }
 
-/* TITRE */
-h1{
-  font-size:60px;
-  margin:20px 0;
-  background:linear-gradient(90deg,#3b82f6,#60a5fa);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-
-/* CARD */
-.card{
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.1);
-  padding:30px;
-  border-radius:15px;
-  margin:20px;
-  transition:0.4s;
-}
-
-.card:hover{
-  transform:translateY(-10px);
-  box-shadow:0 0 30px rgba(59,130,246,0.3);
-}
-
-/* IMAGE */
 .avatar{
-  width:150px;
-  height:150px;
+  width:140px;
+  height:140px;
   border-radius:50%;
   border:3px solid #3b82f6;
+  margin-bottom:20px;
   object-fit:cover;
   transition:0.4s;
 }
 
 .avatar:hover{
-  transform:scale(1.1);
+  transform:scale(1.05);
 }
 
-/* BUTTON */
+h1{
+  font-size:55px;
+  background:linear-gradient(90deg,#3b82f6,#60a5fa);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.subtitle{
+  margin-top:10px;
+  opacity:0.8;
+  font-size:18px;
+}
+
+/* SECTIONS */
+.section{
+  max-width:900px;
+  margin:80px auto;
+  padding:0 20px;
+}
+
+.card{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.1);
+  padding:30px;
+  border-radius:16px;
+  margin:20px 0;
+  transition:0.4s;
+}
+
+.card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 10px 40px rgba(59,130,246,0.2);
+}
+
+h2{
+  margin-bottom:15px;
+  color:#60a5fa;
+}
+
 .btn{
   display:inline-block;
+  margin-top:15px;
   padding:12px 25px;
   background:linear-gradient(90deg,#3b82f6,#60a5fa);
-  border-radius:8px;
+  border-radius:10px;
   text-decoration:none;
   color:white;
-  margin-top:10px;
+  transition:0.3s;
+}
+
+.btn:hover{
+  transform:scale(1.05);
 }
 </style>
 
@@ -113,59 +134,65 @@ h1{
 <a href="index.html">Accueil</a>
 <a href="experiences.html">Expériences</a>
 <a href="formations.html">Formations</a>
+<a href="competences.html">Compétences</a>
 <a href="projets.html">Projets</a>
 <a href="contact.html">Contact</a>
 </div>
 
-<!-- CONTENU -->
-<div class="container">
+<!-- HERO -->
+<div class="hero">
 
-<!-- PHOTO + NOM -->
 <img src="photo.jpg" class="avatar">
 
 <h1>Siaci Abdennour</h1>
-<p>Développeur Java • SQL • React</p>
+<p class="subtitle">Développeur Java • Fullstack en évolution</p>
 
-<!-- PRESENTATION -->
-<div class="card">
-Je construis des projets concrets pour évoluer dans le développement informatique.
 </div>
 
-<!-- A PROPOS -->
-<div class="card">
+<!-- ABOUT -->
+<div class="section">
 
+<div class="card">
 <h2>À propos de moi</h2>
 
 <p>
-Je suis développeur Java avec un niveau intermédiaire à avancé, orienté développement web et applications.
+Développeur Java avec un niveau intermédiaire à avancé, orienté développement web et applications.
 </p>
 
 <p>
-Je maîtrise principalement Java et SQL, et j’utilise React dans mes projets. J’ai également des bases en HTML et CSS que je continue d’améliorer à travers la pratique.
+Je travaille principalement avec Java et SQL, et j’utilise React dans mes projets. J’améliore continuellement mes compétences en HTML et CSS à travers la pratique.
 </p>
 
 <p>
-Mon objectif actuel est de trouver un emploi en tant que développeur afin de travailler sur des projets concrets et évoluer vers un profil fullstack.
+Mon objectif est d’intégrer une entreprise en tant que développeur afin de contribuer à des projets concrets et évoluer vers un profil fullstack.
 </p>
 
 <p>
-Autodidacte et motivé, j’aime apprendre rapidement et construire des projets web et applicatifs.
+Autodidacte et rapide dans l’apprentissage, j’aime construire des projets web et résoudre des problèmes techniques.
 </p>
+</div>
 
 </div>
 
 <!-- CV -->
+<div class="section">
+
 <div class="card">
 <h2>CV</h2>
-<a href="cv.pdf" class="btn">Télécharger</a>
+<p>Télécharge mon CV pour en savoir plus sur mon parcours.</p>
+<a href="cv.pdf" class="btn">Télécharger le CV</a>
+</div>
+
 </div>
 
 <!-- PASSIONS -->
+<div class="section">
+
 <div class="card">
-<h2>Passions</h2>
-<p>Voyage 🌍</p>
-<p>Fitness 💪</p>
-<p>Tech 💻</p>
+<h2>Ce que j’aime</h2>
+<p>🌍 Voyage</p>
+<p>💪 Fitness</p>
+<p>💻 Développement web</p>
 </div>
 
 </div>
