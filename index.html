@@ -1,3 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Portfolio - Abdennour</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:Segoe UI;
+  background:radial-gradient(circle at top,#0f172a,#020617);
+  color:white;
+}
+
+/* NAVBAR */
+.nav{
+  position:fixed;
+  top:0;
+  width:100%;
+  display:flex;
+  justify-content:center;
+  gap:30px;
+  padding:20px;
+  background:rgba(0,0,0,0.4);
+  backdrop-filter:blur(15px);
+  z-index:1000;
+}
+
+.nav a{
+  color:white;
+  text-decoration:none;
+  opacity:0.7;
+  transition:0.3s;
+  font-weight:500;
+}
+
+.nav a:hover{
+  opacity:1;
+  color:#60a5fa;
+  transform:translateY(-2px);
+}
+
+/* HERO */
+.hero{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:0 20px;
+}
+
+.avatar{
+  width:140px;
+  height:140px;
+  border-radius:50%;
+  border:3px solid #3b82f6;
+  margin-bottom:20px;
+  object-fit:cover;
+  transition:0.4s;
+}
+
+.avatar:hover{
+  transform:scale(1.05);
+}
+
+h1{
+  font-size:55px;
+  background:linear-gradient(90deg,#3b82f6,#60a5fa);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.subtitle{
+  margin-top:10px;
+  opacity:0.8;
+  font-size:18px;
+}
+
+/* SECTIONS */
+.section{
+  max-width:900px;
+  margin:80px auto;
+  padding:0 20px;
+}
+
+.card{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.1);
+  padding:30px;
+  border-radius:16px;
+  margin:20px 0;
+  transition:0.4s;
+}
+
+.card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 10px 40px rgba(59,130,246,0.2);
+}
+
+h2{
+  margin-bottom:15px;
+  color:#60a5fa;
+}
+
+.btn{
+  display:inline-block;
+  margin-top:15px;
+  padding:12px 25px;
+  background:linear-gradient(90deg,#3b82f6,#60a5fa);
+  border-radius:10px;
+  text-decoration:none;
+  color:white;
+  transition:0.3s;
+}
+
+.btn:hover{
+  transform:scale(1.05);
+}
+
+/* LISTES PRO */
+ul{
+  text-align:left;
+  margin-top:15px;
+  line-height:1.8;
+  opacity:0.9;
+  padding-left:20px;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="nav">
+<a href="index.html">Accueil</a>
+<a href="experiences.html">Expériences</a>
+<a href="formations.html">Formations</a>
+<a href="competences.html">Compétences</a>
+<a href="projets.html">Projets</a>
+<a href="contact.html">Contact</a>
+</div>
+
 <!-- HERO -->
 <div class="hero">
 
@@ -20,7 +170,7 @@ Développeur Java avec un niveau intermédiaire à avancé, orienté développem
 </p>
 
 <p>
-Je travaille principalement avec Java et SQL, et j’utilise React dans mes projets. Je continue d’améliorer mes compétences en frontend (HTML/CSS) à travers la pratique.
+Je travaille principalement avec Java et SQL, et j’utilise React dans mes projets. Je continue d’améliorer mes compétences en HTML et CSS à travers la pratique.
 </p>
 
 <p>
@@ -38,7 +188,7 @@ Mon objectif est d’intégrer une entreprise en tant que développeur et évolu
 
 <h2>Ce que je sais faire</h2>
 
-<ul style="text-align:left; margin-top:15px; line-height:1.8; opacity:0.9; padding-left:20px;">
+<ul>
 <li>Créer des applications Java (POO, logique, structures de données)</li>
 <li>Utiliser SQL pour gérer des bases de données</li>
 <li>Créer des interfaces web simples avec HTML et CSS</li>
@@ -57,7 +207,7 @@ Mon objectif est d’intégrer une entreprise en tant que développeur et évolu
 
 <h2>En apprentissage</h2>
 
-<ul style="text-align:left; margin-top:15px; line-height:1.8; opacity:0.9; padding-left:20px;">
+<ul>
 <li>Développement fullstack (Java + React)</li>
 <li>Amélioration frontend (HTML/CSS)</li>
 <li>Structuration de projets avancés</li>
@@ -89,3 +239,6 @@ Mon objectif est d’intégrer une entreprise en tant que développeur et évolu
 </div>
 
 </div>
+
+</body>
+</html>
