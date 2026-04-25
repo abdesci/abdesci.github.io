@@ -20,17 +20,26 @@ body{
   100%{background-position:right;}
 }
 
-/* NAV */
+/* NAVBAR */
 .nav{
   position:fixed;
   top:0;
+  left:0;
   width:100%;
   display:flex;
   justify-content:center;
   gap:30px;
   padding:20px;
-  background:rgba(0,0,0,0.3);
-  backdrop-filter:blur(12px);
+  background:rgba(0,0,0,0.2);
+  backdrop-filter:blur(8px);
+  transition:0.3s;
+  z-index:1000;
+}
+
+.nav.scrolled{
+  background:rgba(0,0,0,0.85);
+  backdrop-filter:blur(15px);
+  box-shadow:0 5px 20px rgba(0,0,0,0.5);
 }
 
 .nav a{
@@ -43,6 +52,7 @@ body{
 .nav a:hover{
   opacity:1;
   color:#3b82f6;
+  transform:scale(1.1);
 }
 
 /* CONTAINER */
@@ -52,6 +62,7 @@ body{
   margin:auto;
 }
 
+/* TITLE */
 h1{
   text-align:center;
   font-size:50px;
@@ -76,7 +87,6 @@ h1{
   box-shadow:0 0 30px rgba(59,130,246,0.3);
 }
 
-/* TITRES */
 .role{
   color:#3b82f6;
   font-weight:bold;
@@ -89,11 +99,9 @@ h1{
   margin-bottom:10px;
 }
 
-/* LIST */
 ul{
   margin-top:10px;
   padding-left:20px;
-  opacity:0.9;
 }
 
 li{
@@ -105,6 +113,7 @@ li{
 
 <body>
 
+<!-- NAVBAR -->
 <div class="nav">
 <a href="index.html">Accueil</a>
 <a href="experiences.html">Expériences</a>
@@ -117,44 +126,46 @@ li{
 
 <h1>Expériences professionnelles</h1>
 
-<!-- FITNESS PARK -->
 <div class="card">
-
 <div class="role">Responsable adjoint — Fitness Park</div>
 <div class="date">Actuellement en poste</div>
 
 <p>
-Gestion opérationnelle d’une salle de sport et accompagnement des équipes au quotidien.
+Gestion opérationnelle d’une salle de sport et accompagnement des équipes.
 </p>
 
 <ul>
 <li>Gestion de la satisfaction client</li>
 <li>Suivi des abonnements et encaissements</li>
 <li>Gestion des stocks et commandes</li>
-<li>Organisation interne de la salle</li>
+<li>Organisation interne</li>
 </ul>
-
 </div>
 
-<!-- VERSION PLUS PRO (SOFT SKILLS CACHEES) -->
 <div class="card">
-
 <div class="role">Compétences développées</div>
-
-<p>
-Cette expérience m’a permis de développer des compétences transférables importantes pour le développement informatique :
-</p>
 
 <ul>
 <li>Organisation et rigueur</li>
-<li>Résolution de problèmes concrets</li>
-<li>Communication client</li>
-<li>Gestion de tâches multiples</li>
+<li>Résolution de problèmes</li>
+<li>Gestion de responsabilités</li>
+<li>Communication professionnelle</li>
 </ul>
-
 </div>
 
 </div>
+
+<!-- SCRIPT SCROLL -->
+<script>
+window.addEventListener("scroll", function(){
+  const nav = document.querySelector(".nav");
+  if(window.scrollY > 50){
+    nav.classList.add("scrolled");
+  } else {
+    nav.classList.remove("scrolled");
+  }
+});
+</script>
 
 </body>
 </html>
