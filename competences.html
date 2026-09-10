@@ -2,41 +2,56 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Compétences</title>
-
-<style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:Segoe UI;background:linear-gradient(120deg,#020617,#0f172a,#020617);background-size:200% 200%;animation:bg 10s infinite alternate;color:white;}
-.nav{position:fixed;top:0;width:100%;display:flex;justify-content:center;gap:30px;padding:20px;background:rgba(0,0,0,0.3);}
-.container{padding-top:150px;max-width:1000px;margin:auto;text-align:center;}
-.card{background:rgba(255,255,255,0.05);padding:20px;border-radius:15px;margin:10px;}
-</style>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compétences — Siaci Abdennour</title>
+<meta name="description" content="Compétences techniques de Siaci Abdennour : Java, SQL, React, HTML/CSS, JavaScript, Python.">
+<meta name="theme-color" content="#020617">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="canonical" href="https://abdesci.github.io/competences.html">
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="nav">
-<a href="index.html">Accueil</a>
-<a href="experiences.html">Expériences</a>
-<a href="formations.html">Formations</a>
-<a href="competences.html">Compétences</a>
-<a href="projets.html">Projets</a>
-<a href="contact.html">Contact</a>
+<a class="skip-link" href="#main">Aller au contenu</a>
+
+<nav class="nav" aria-label="Navigation principale">
+  <div class="nav-links">
+    <a href="index.html">Accueil</a>
+    <a href="experiences.html">Expériences</a>
+    <a href="formations.html">Formations</a>
+    <a href="competences.html" aria-current="page">Compétences</a>
+    <a href="projets.html">Projets</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+</nav>
+
+<main id="main" class="container">
+
+<h1 class="page-title">Compétences</h1>
+
+<div class="skill-grid">
+  <div class="card">HTML / CSS</div>
+  <div class="card">JavaScript</div>
+  <div class="card">SQL</div>
+  <div class="card">Python</div>
+  <div class="card">Java</div>
+  <div class="card">React</div>
 </div>
 
-<div class="container">
+</main>
 
-<h1>Compétences</h1>
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="https://github.com/abdesci" target="_blank" rel="noopener">GitHub</a>
+    <a href="mailto:nourabdel345@gmail.com">Email</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <p>&copy; <span id="year"></span> Siaci Abdennour</p>
+</footer>
 
-<div class="card">HTML / CSS</div>
-<div class="card">JavaScript</div>
-<div class="card">SQL</div>
-<div class="card">Python</div>
-<div class="card">Java</div>
-<div class="card">React</div>
-
-</div>
-
+<script src="script.js"></script>
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 </body>
 </html>

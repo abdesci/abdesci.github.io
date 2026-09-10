@@ -2,187 +2,97 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Formations</title>
-
-<style>
-*{margin:0;padding:0;box-sizing:border-box;}
-
-body{
-  font-family:Segoe UI;
-  background:linear-gradient(120deg,#020617,#0f172a,#020617);
-  background-size:200% 200%;
-  animation:bg 10s infinite alternate;
-  color:white;
-}
-
-@keyframes bg{
-  0%{background-position:left;}
-  100%{background-position:right;}
-}
-
-.nav{
-  position:fixed;
-  top:0;
-  width:100%;
-  display:flex;
-  justify-content:center;
-  gap:30px;
-  padding:20px;
-  background:rgba(0,0,0,0.3);
-  backdrop-filter:blur(12px);
-}
-
-.nav a{
-  color:white;
-  text-decoration:none;
-  opacity:0.7;
-  transition:0.3s;
-}
-
-.nav a:hover{
-  opacity:1;
-  color:#3b82f6;
-  transform:scale(1.1);
-}
-
-.container{
-  padding-top:140px;
-  max-width:1000px;
-  margin:auto;
-}
-
-h1{
-  text-align:center;
-  font-size:50px;
-  margin-bottom:40px;
-  background:linear-gradient(90deg,#3b82f6,#60a5fa);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-
-.timeline{
-  position:relative;
-  margin-left:20px;
-}
-
-.timeline::before{
-  content:'';
-  position:absolute;
-  left:10px;
-  top:0;
-  width:3px;
-  height:100%;
-  background:#3b82f6;
-}
-
-.item{
-  margin:40px 0;
-  padding-left:40px;
-  position:relative;
-}
-
-.item::before{
-  content:'';
-  position:absolute;
-  left:0;
-  top:5px;
-  width:20px;
-  height:20px;
-  border-radius:50%;
-  background:#3b82f6;
-}
-
-.card{
-  background:rgba(255,255,255,0.05);
-  padding:20px;
-  border-radius:12px;
-  transition:0.3s;
-}
-
-.card:hover{
-  transform:translateX(10px);
-  box-shadow:0 0 20px rgba(59,130,246,0.4);
-}
-
-.date{
-  opacity:0.6;
-  font-size:14px;
-  margin-bottom:5px;
-}
-
-.desc{
-  opacity:0.8;
-  margin-top:10px;
-}
-</style>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Formations — Siaci Abdennour</title>
+<meta name="description" content="Parcours de formation de Siaci Abdennour : BAC STI2D, BUT Informatique, BTS SAM, auto-formation en développement (Java, SQL, React).">
+<meta name="theme-color" content="#020617">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="canonical" href="https://abdesci.github.io/formations.html">
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="nav">
-<a href="index.html">Accueil</a>
-<a href="experiences.html">Expériences</a>
-<a href="formations.html">Formations</a>
-<a href="projets.html">Projets</a>
-<a href="contact.html">Contact</a>
-</div>
+<a class="skip-link" href="#main">Aller au contenu</a>
 
-<div class="container">
+<nav class="nav" aria-label="Navigation principale">
+  <div class="nav-links">
+    <a href="index.html">Accueil</a>
+    <a href="experiences.html">Expériences</a>
+    <a href="formations.html" aria-current="page">Formations</a>
+    <a href="competences.html">Compétences</a>
+    <a href="projets.html">Projets</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+</nav>
 
-<h1>Formations</h1>
+<main id="main" class="container">
+
+<h1 class="page-title">Formations</h1>
 
 <div class="timeline">
 
-<div class="item">
-  <div class="card">
-    <div class="date">2025 - Aujourd’hui</div>
-    <h2>Auto-formation en développement informatique</h2>
-    <p class="desc">
-      Formation continue sur Java, SQL et React via Hyperskills.  
-      Approfondissement des compétences techniques et réalisation de projets personnels.
-    </p>
+  <div class="item">
+    <div class="card">
+      <div class="date">2025 - Aujourd'hui</div>
+      <h2>Auto-formation en développement informatique</h2>
+      <p class="desc">
+        Formation continue sur Java, SQL et React via Hyperskills.
+        Approfondissement des compétences techniques et réalisation de projets personnels.
+      </p>
+    </div>
   </div>
-</div>
 
-<div class="item">
-  <div class="card">
-    <div class="date">2023 - 2025</div>
-    <h2>BTS SAM — Lycée Marie Curie</h2>
-    <p class="desc">
-      Formation en gestion et organisation.  
-      Développement de compétences en rigueur, communication et gestion de tâches.  
-      Diplôme obtenu.
-    </p>
+  <div class="item">
+    <div class="card">
+      <div class="date">2023 - 2025</div>
+      <h2>BTS SAM — Lycée Marie Curie</h2>
+      <p class="desc">
+        Formation en gestion et organisation.
+        Développement de compétences en rigueur, communication et gestion de tâches.
+        Diplôme obtenu.
+      </p>
+    </div>
   </div>
-</div>
 
-<div class="item">
-  <div class="card">
-    <div class="date">2022 - 2023</div>
-    <h2>BUT Informatique — Aix-en-Provence</h2>
-    <p class="desc">
-      Acquisition des bases en développement (SQL, Python, réseaux).  
-      Expérience qui a confirmé mon intérêt pour l’informatique, malgré une méthodologie qui ne correspondait pas à ma façon d’apprendre.
-    </p>
+  <div class="item">
+    <div class="card">
+      <div class="date">2022 - 2023</div>
+      <h2>BUT Informatique — Aix-en-Provence</h2>
+      <p class="desc">
+        Acquisition des bases en développement (SQL, Python, réseaux).
+        Expérience qui a confirmé mon intérêt pour l'informatique, malgré une méthodologie qui ne correspondait pas à ma façon d'apprendre.
+      </p>
+    </div>
   </div>
-</div>
 
-<div class="item">
-  <div class="card">
-    <div class="date">2021</div>
-    <h2>BAC STI2D — Lycée Antonin Artaud</h2>
-    <p class="desc">
-      Formation technologique orientée vers les systèmes et l’ingénierie.  
-      Développement de la logique et de la résolution de problèmes.  
-      Mention Bien.
-    </p>
+  <div class="item">
+    <div class="card">
+      <div class="date">2021</div>
+      <h2>BAC STI2D — Lycée Antonin Artaud</h2>
+      <p class="desc">
+        Formation technologique orientée vers les systèmes et l'ingénierie.
+        Développement de la logique et de la résolution de problèmes.
+        Mention Bien.
+      </p>
+    </div>
   </div>
-</div>
 
 </div>
 
-</div>
+</main>
 
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="https://github.com/abdesci" target="_blank" rel="noopener">GitHub</a>
+    <a href="mailto:nourabdel345@gmail.com">Email</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <p>&copy; <span id="year"></span> Siaci Abdennour</p>
+</footer>
+
+<script src="script.js"></script>
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 </body>
 </html>

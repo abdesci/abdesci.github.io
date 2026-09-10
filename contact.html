@@ -2,123 +2,64 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Contact</title>
-
-<style>
-*{margin:0;padding:0;box-sizing:border-box;}
-
-body{
-  font-family:Segoe UI;
-  background:linear-gradient(120deg,#020617,#0f172a,#020617);
-  background-size:200% 200%;
-  animation:bg 10s infinite alternate;
-  color:white;
-}
-
-@keyframes bg{
-  0%{background-position:left;}
-  100%{background-position:right;}
-}
-
-.nav{
-  position:fixed;
-  top:0;
-  width:100%;
-  display:flex;
-  justify-content:center;
-  gap:30px;
-  padding:20px;
-  background:rgba(0,0,0,0.3);
-  backdrop-filter:blur(12px);
-}
-
-.nav a{
-  color:white;
-  text-decoration:none;
-  opacity:0.7;
-  transition:0.3s;
-}
-
-.nav a:hover{
-  opacity:1;
-  color:#3b82f6;
-  transform:scale(1.1);
-}
-.container{
-  padding-top:140px;
-  max-width:900px;
-  margin:auto;
-  text-align:center;
-}
-
-h1{
-  font-size:50px;
-  margin-bottom:40px;
-  background:linear-gradient(90deg,#3b82f6,#60a5fa);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-
-.card{
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.1);
-  padding:30px;
-  border-radius:15px;
-  margin:20px;
-  transition:0.4s;
-}
-
-.card:hover{
-  transform:translateY(-10px);
-  box-shadow:0 0 25px rgba(59,130,246,0.3);
-}
-
-.btn{
-  display:inline-block;
-  margin-top:15px;
-  padding:12px 25px;
-  background:linear-gradient(90deg,#3b82f6,#60a5fa);
-  border-radius:8px;
-  text-decoration:none;
-  color:white;
-}
-</style>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact — Siaci Abdennour</title>
+<meta name="description" content="Contacter Siaci Abdennour — ouvert aux opportunités de stage, alternance et poste junior en développement.">
+<meta name="theme-color" content="#020617">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="canonical" href="https://abdesci.github.io/contact.html">
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-<div class="nav">
-<a href="index.html">Accueil</a>
-<a href="experiences.html">Expériences</a>
-<a href="formations.html">Formations</a>
-<a href="projets.html">Projets</a>
-<a href="contact.html">Contact</a>
-</div>
 
-<div class="container">
+<a class="skip-link" href="#main">Aller au contenu</a>
 
-<h1>Contact</h1>
+<nav class="nav" aria-label="Navigation principale">
+  <div class="nav-links">
+    <a href="index.html">Accueil</a>
+    <a href="experiences.html">Expériences</a>
+    <a href="formations.html">Formations</a>
+    <a href="competences.html">Compétences</a>
+    <a href="projets.html">Projets</a>
+    <a href="contact.html" aria-current="page">Contact</a>
+  </div>
+  <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+</nav>
 
-<div class="card">
-<p>📧 Email professionnel</p>
-<p><b>nourabdel345@gmail.com</b></p>
+<main id="main" class="container" style="text-align:center;">
 
-<a class="btn" href="mailto:nourabdel345@gmail.com">
-Envoyer un email
-</a>
-</div>
+<h1 class="page-title">Contact</h1>
 
 <div class="card">
-<h2>💼 Réseaux</h2>
-<p>LinkedIn à venir</p>
+  <p>📧 Email professionnel</p>
+  <p><b>nourabdel345@gmail.com</b></p>
+  <a class="btn" href="mailto:nourabdel345@gmail.com">Envoyer un email</a>
 </div>
 
 <div class="card">
-<h2>⚡ Disponibilité</h2>
-<p>Ouvert aux opportunités (stage, alternance, junior dev)</p>
+  <h2>💼 Réseaux</h2>
+  <p><a href="https://github.com/abdesci" target="_blank" rel="noopener">GitHub</a></p>
+  <p>LinkedIn à venir</p>
 </div>
 
+<div class="card">
+  <h2>⚡ Disponibilité</h2>
+  <p>Ouvert aux opportunités (stage, alternance, junior dev)</p>
 </div>
 
+</main>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="https://github.com/abdesci" target="_blank" rel="noopener">GitHub</a>
+    <a href="mailto:nourabdel345@gmail.com">Email</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <p>&copy; <span id="year"></span> Siaci Abdennour</p>
+</footer>
+
+<script src="script.js"></script>
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 </body>
 </html>

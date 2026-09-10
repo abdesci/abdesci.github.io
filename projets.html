@@ -2,139 +2,68 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Projets</title>
-
-<style>
-*{margin:0;padding:0;box-sizing:border-box;}
-
-body{
-  font-family:Segoe UI;
-  background:linear-gradient(120deg,#020617,#0f172a,#020617);
-  background-size:200% 200%;
-  animation:bg 10s infinite alternate;
-  color:white;
-}
-
-@keyframes bg{
-  0%{background-position:left;}
-  100%{background-position:right;}
-}
-
-.nav{
-  position:fixed;
-  top:0;
-  width:100%;
-  display:flex;
-  justify-content:center;
-  gap:30px;
-  padding:20px;
-  background:rgba(0,0,0,0.3);
-  backdrop-filter:blur(12px);
-}
-
-.nav a{
-  color:white;
-  text-decoration:none;
-  opacity:0.7;
-  transition:0.3s;
-}
-
-.nav a:hover{
-  opacity:1;
-  color:#3b82f6;
-  transform:scale(1.1);
-}
-
-.container{
-  padding-top:140px;
-  max-width:1000px;
-  margin:auto;
-}
-
-h1{
-  text-align:center;
-  font-size:50px;
-  margin-bottom:40px;
-  background:linear-gradient(90deg,#3b82f6,#60a5fa);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-
-.project{
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.1);
-  padding:30px;
-  border-radius:15px;
-  margin:30px 0;
-  transition:0.4s;
-}
-
-.project:hover{
-  transform:translateY(-10px);
-  box-shadow:0 0 30px rgba(59,130,246,0.3);
-}
-
-.tech{
-  margin-top:15px;
-  opacity:0.8;
-}
-
-.section-title{
-  margin-top:15px;
-  font-weight:bold;
-  color:#3b82f6;
-}
-</style>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projets — Siaci Abdennour</title>
+<meta name="description" content="Projets de Siaci Abdennour : Page Blanche (plateforme collaborative de pixels) et projets d'apprentissage Java/SQL.">
+<meta name="theme-color" content="#020617">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="canonical" href="https://abdesci.github.io/projets.html">
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="nav">
-<a href="index.html">Accueil</a>
-<a href="experiences.html">Expériences</a>
-<a href="formations.html">Formations</a>
-<a href="projets.html">Projets</a>
-<a href="contact.html">Contact</a>
-</div>
+<a class="skip-link" href="#main">Aller au contenu</a>
 
-<div class="container">
+<nav class="nav" aria-label="Navigation principale">
+  <div class="nav-links">
+    <a href="index.html">Accueil</a>
+    <a href="experiences.html">Expériences</a>
+    <a href="formations.html">Formations</a>
+    <a href="competences.html">Compétences</a>
+    <a href="projets.html" aria-current="page">Projets</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+</nav>
 
-<h1>Projets</h1>
+<main id="main" class="container">
 
-<div class="project">
-
-<h2>🧠 Page Blanche</h2>
-
-<p>
-Plateforme interactive où les utilisateurs peuvent acheter des pixels pour créer une œuvre collective.
-</p>
-
-<div class="section-title">🎯 Objectif</div>
-<p>Créer une application web dynamique avec interactions en temps réel</p>
-
-<div class="section-title">💻 Stack</div>
-<p class="tech">HTML • CSS • JavaScript • React (en cours)</p>
-
-<div class="section-title">🚧 Statut</div>
-<p>En développement</p>
-
-</div>
+<h1 class="page-title">Projets</h1>
 
 <div class="project">
-
-<h2>💻 Projets d’apprentissage</h2>
-
-<p>
-Réalisation de projets via Hyperskills pour renforcer mes compétences.
-</p>
-
-<div class="section-title">💻 Stack</div>
-<p class="tech">Java • SQL • Algorithmique</p>
-
+  <h2>🧠 Page Blanche</h2>
+  <p>
+    Plateforme interactive où les utilisateurs peuvent acheter des pixels pour créer une œuvre collective.
+  </p>
+  <div class="section-title">🎯 Objectif</div>
+  <p>Créer une application web dynamique avec interactions en temps réel</p>
+  <div class="section-title">💻 Stack</div>
+  <p class="tech">HTML • CSS • JavaScript • React (en cours)</p>
+  <span class="badge">🚧 En développement</span>
 </div>
 
+<div class="project">
+  <h2>💻 Projets d'apprentissage</h2>
+  <p>
+    Réalisation de projets via Hyperskills pour renforcer mes compétences.
+  </p>
+  <div class="section-title">💻 Stack</div>
+  <p class="tech">Java • SQL • Algorithmique</p>
 </div>
 
+</main>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="https://github.com/abdesci" target="_blank" rel="noopener">GitHub</a>
+    <a href="mailto:nourabdel345@gmail.com">Email</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <p>&copy; <span id="year"></span> Siaci Abdennour</p>
+</footer>
+
+<script src="script.js"></script>
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 </body>
 </html>
