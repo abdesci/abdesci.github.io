@@ -90,6 +90,29 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // ---- Anneaux de progression radiaux (compétences détaillées) ----
+  var radialCards = document.querySelectorAll(".radial-card");
+  if (radialCards.length && "IntersectionObserver" in window) {
+    var radialIo = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+            radialIo.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+    radialCards.forEach(function (el) {
+      radialIo.observe(el);
+    });
+  } else {
+    radialCards.forEach(function (el) {
+      el.classList.add("revealed");
+    });
+  }
+
   // ---- Compteurs animés (stats) ----
   var stats = document.querySelectorAll(".stat .num[data-count]");
   if (stats.length) {
