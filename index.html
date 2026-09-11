@@ -3,18 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Siaci Abdennour — Développeur Java Fullstack</title>
-<meta name="description" content="Portfolio de Siaci Abdennour, développeur Java en évolution vers un profil fullstack (Java, SQL, React). Ouvert aux stages, alternances et postes junior.">
-<meta name="theme-color" content="#020617">
+<title>Siaci Abdennour — Développeur Java</title>
+<meta name="description" content="Portfolio de Siaci Abdennour, développeur Java (Java, HTML, CSS, SQL) en évolution vers un profil fullstack. Ouvert aux stages, alternances et postes junior.">
+<meta name="theme-color" content="#07070a">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="canonical" href="https://abdesci.github.io/">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="Siaci Abdennour — Développeur Java Fullstack">
-<meta property="og:description" content="Portfolio de Siaci Abdennour, développeur Java en évolution vers un profil fullstack (Java, SQL, React).">
+<meta property="og:title" content="Siaci Abdennour — Développeur Java">
+<meta property="og:description" content="Portfolio de Siaci Abdennour, développeur Java en évolution vers un profil fullstack.">
 <meta property="og:url" content="https://abdesci.github.io/">
 <meta property="og:locale" content="fr_FR">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="style.css">
 </head>
@@ -43,8 +47,8 @@
   <div class="avatar-wrap">
     <img src="photo.jpg" alt="Photo de Siaci Abdennour" onerror="var p=this.parentElement; this.remove(); p.textContent='SA';">
   </div>
-  <h1>Siaci Abdennour</h1>
-  <p class="subtitle">Développeur Java • Fullstack en évolution</p>
+  <h1>Siaci <span class="accent-word">Abdennour</span></h1>
+  <p class="subtitle"><span data-typed="Développeur Java|Futur profil Fullstack|Passionné de code propre"></span></p>
   <span class="badge-pill"><span class="dot"></span> Ouvert aux opportunités</span>
   <div class="cta-row">
     <a href="projets.html" class="btn">Voir mes projets</a>
@@ -52,15 +56,36 @@
   </div>
 </div>
 
+<!-- STATS -->
+<div class="stats-row reveal">
+  <div class="stat">
+    <span class="num" data-count="4">0</span>
+    <span class="label">Langages maîtrisés</span>
+  </div>
+  <div class="stat">
+    <span class="num" data-count="2">0</span>
+    <span class="label">Projets réalisés</span>
+  </div>
+  <div class="stat">
+    <span class="num" data-count="4">0</span>
+    <span class="label">Formations suivies</span>
+  </div>
+  <div class="stat">
+    <span class="num" data-count="1">0</span>
+    <span class="label">An d'expérience pro</span>
+  </div>
+</div>
+
 <!-- ABOUT -->
-<div class="section">
+<div class="section reveal">
+  <span class="eyebrow">Profil</span>
   <div class="card">
     <h2>À propos</h2>
     <p>
       Développeur Java avec un niveau intermédiaire à avancé, orienté développement web et applications.
     </p>
     <p>
-      Je travaille principalement avec Java et SQL, et j'utilise React dans mes projets. Je continue d'améliorer mes compétences en HTML et CSS à travers la pratique.
+      Je me concentre sur quatre langages que je maîtrise réellement : Java, SQL, HTML et CSS — plutôt que de disperser mes compétences.
     </p>
     <p>
       Mon objectif est d'intégrer une entreprise en tant que développeur et d'évoluer vers un profil fullstack.
@@ -68,34 +93,34 @@
   </div>
 </div>
 
-<!-- COMPETENCES -->
-<div class="section">
-  <div class="card">
-    <h2>Ce que je sais faire</h2>
-    <ul>
-      <li>Créer des applications Java (POO, logique, structures de données)</li>
-      <li>Utiliser SQL pour gérer des bases de données</li>
-      <li>Créer des interfaces web simples avec HTML et CSS</li>
-      <li>Développer des interfaces React (niveau intermédiaire)</li>
-      <li>Structurer un projet web de base</li>
-    </ul>
+<!-- COMPETENCES CLES -->
+<div class="section reveal">
+  <span class="eyebrow">Stack technique</span>
+  <div class="lang-grid">
+    <div class="lang-card" style="--fill:88%">
+      <div class="lang-top"><span class="lang-name">Java</span><span class="lang-level">Avancé</span></div>
+      <div class="lang-bar"><div class="lang-bar-fill"></div></div>
+    </div>
+    <div class="lang-card" style="--fill:70%">
+      <div class="lang-top"><span class="lang-name">SQL</span><span class="lang-level">Intermédiaire</span></div>
+      <div class="lang-bar"><div class="lang-bar-fill"></div></div>
+    </div>
+    <div class="lang-card" style="--fill:75%">
+      <div class="lang-top"><span class="lang-name">HTML</span><span class="lang-level">Intermédiaire</span></div>
+      <div class="lang-bar"><div class="lang-bar-fill"></div></div>
+    </div>
+    <div class="lang-card" style="--fill:65%">
+      <div class="lang-top"><span class="lang-name">CSS</span><span class="lang-level">Intermédiaire</span></div>
+      <div class="lang-bar"><div class="lang-bar-fill"></div></div>
+    </div>
   </div>
-</div>
-
-<!-- APPRENTISSAGE -->
-<div class="section">
-  <div class="card">
-    <h2>En apprentissage</h2>
-    <ul>
-      <li>Développement fullstack (Java + React)</li>
-      <li>Amélioration frontend (HTML/CSS)</li>
-      <li>Structuration de projets avancés</li>
-    </ul>
-  </div>
+  <p style="text-align:center; margin-top:22px;">
+    <a href="competences.html" class="btn-outline">Voir le détail des compétences</a>
+  </p>
 </div>
 
 <!-- CV -->
-<div class="section">
+<div class="section reveal">
   <div class="card">
     <h2>CV</h2>
     <p>Télécharge mon CV pour en savoir plus sur mon parcours.</p>
@@ -103,41 +128,95 @@
   </div>
 </div>
 
-<!-- PASSIONS -->
-<div class="section">
+<!-- CENTRES D'INTERET -->
+<div class="section reveal">
+  <span class="eyebrow">En dehors du code</span>
   <div class="card">
     <h2>Centres d'intérêt</h2>
     <div class="interest-grid">
+
       <div class="interest-card">
-        <span class="icon">🌍</span>
-        <span class="label">Voyage</span>
-        <span class="hint">Découverte de nouvelles cultures</span>
+        <svg class="banner" viewBox="0 0 300 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration voyage">
+          <rect width="300" height="140" fill="#14131a"/>
+          <path d="M20 115 Q150 20 280 40" stroke="#c9a227" stroke-width="1.5" stroke-dasharray="4 6" fill="none" opacity="0.5"/>
+          <g transform="translate(150,60) rotate(-18)">
+            <path d="M0 -14 L34 0 L0 14 L6 0 Z" fill="#c9a227"/>
+            <path d="M0 -14 L-40 -2 L0 2 Z" fill="#e8cf7a" opacity="0.85"/>
+          </g>
+          <circle cx="240" cy="35" r="3" fill="#e8cf7a" opacity="0.6"/>
+          <circle cx="255" cy="45" r="2" fill="#e8cf7a" opacity="0.4"/>
+        </svg>
+        <div class="body">
+          <span class="label">Voyage</span>
+          <span class="hint">Découverte de nouvelles cultures</span>
+        </div>
       </div>
+
       <div class="interest-card">
-        <span class="icon">💪</span>
-        <span class="label">Fitness</span>
-        <span class="hint">Musculation & dépassement de soi</span>
+        <svg class="banner" viewBox="0 0 300 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration fitness">
+          <rect width="300" height="140" fill="#14131a"/>
+          <line x1="90" y1="70" x2="210" y2="70" stroke="#c9a227" stroke-width="6" stroke-linecap="round"/>
+          <rect x="60" y="50" width="14" height="40" rx="4" fill="#e8cf7a"/>
+          <rect x="76" y="40" width="10" height="60" rx="3" fill="#e8cf7a"/>
+          <rect x="214" y="40" width="10" height="60" rx="3" fill="#e8cf7a"/>
+          <rect x="226" y="50" width="14" height="40" rx="4" fill="#e8cf7a"/>
+        </svg>
+        <div class="body">
+          <span class="label">Fitness</span>
+          <span class="hint">Musculation & dépassement de soi</span>
+        </div>
       </div>
+
       <div class="interest-card">
-        <span class="icon">💻</span>
-        <span class="label">Développement web</span>
-        <span class="hint">Créer des projets persos</span>
+        <svg class="banner" viewBox="0 0 300 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration développement web">
+          <rect width="300" height="140" fill="#14131a"/>
+          <text x="150" y="90" font-family="monospace" font-size="60" font-weight="700" fill="#c9a227" text-anchor="middle">&lt;/&gt;</text>
+        </svg>
+        <div class="body">
+          <span class="label">Développement web</span>
+          <span class="hint">Créer des projets persos</span>
+        </div>
       </div>
+
       <div class="interest-card">
-        <span class="icon">🎮</span>
-        <span class="label">Gaming</span>
-        <span class="hint">Jeux de stratégie & compétitifs</span>
+        <svg class="banner" viewBox="0 0 300 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration randonnée">
+          <rect width="300" height="140" fill="#14131a"/>
+          <circle cx="245" cy="35" r="16" fill="#e8cf7a" opacity="0.85"/>
+          <path d="M0 120 L60 55 L95 90 L140 40 L190 100 L230 60 L300 120 Z" fill="#c9a227" opacity="0.9"/>
+          <path d="M0 130 L80 85 L130 115 L190 75 L260 125 L300 100 L300 140 L0 140 Z" fill="#07070a" opacity="0.9"/>
+          <path d="M40 130 Q90 95 140 118 T230 100" stroke="#e8cf7a" stroke-width="2" stroke-dasharray="3 5" fill="none" opacity="0.7"/>
+        </svg>
+        <div class="body">
+          <span class="label">Randonnée</span>
+          <span class="hint">Sommets et grand air</span>
+        </div>
       </div>
+
       <div class="interest-card">
-        <span class="icon">🎧</span>
-        <span class="label">Musique</span>
-        <span class="hint">Toujours un son dans les oreilles</span>
+        <svg class="banner" viewBox="0 0 300 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration escalade">
+          <rect width="300" height="140" fill="#14131a"/>
+          <path d="M0 140 L0 40 L40 55 L70 20 L110 50 L150 10 L190 45 L230 15 L270 50 L300 30 L300 140 Z" fill="#c9a227" opacity="0.85"/>
+          <circle cx="55" cy="45" r="4" fill="#e8cf7a"/>
+          <circle cx="95" cy="35" r="4" fill="#e8cf7a"/>
+          <circle cx="130" cy="55" r="4" fill="#e8cf7a"/>
+          <circle cx="170" cy="30" r="4" fill="#e8cf7a"/>
+          <circle cx="210" cy="50" r="4" fill="#e8cf7a"/>
+          <circle cx="250" cy="40" r="4" fill="#e8cf7a"/>
+          <g stroke="#07070a" stroke-width="4" stroke-linecap="round" fill="none">
+            <circle cx="150" cy="80" r="8" fill="#07070a" stroke="none"/>
+            <line x1="150" y1="88" x2="150" y2="110"/>
+            <line x1="150" y1="95" x2="130" y2="60"/>
+            <line x1="150" y1="95" x2="170" y2="75"/>
+            <line x1="150" y1="110" x2="132" y2="130"/>
+            <line x1="150" y1="110" x2="168" y2="128"/>
+          </g>
+        </svg>
+        <div class="body">
+          <span class="label">Escalade</span>
+          <span class="hint">Franchir chaque voie</span>
+        </div>
       </div>
-      <div class="interest-card">
-        <span class="icon">🚀</span>
-        <span class="label">Veille techno</span>
-        <span class="hint">Nouveautés dev & IA</span>
-      </div>
+
     </div>
   </div>
 </div>
