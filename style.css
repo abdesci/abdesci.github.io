@@ -1059,6 +1059,62 @@ h1 .accent-word{
   }
 }
 
+/* ============ BINÔME BRAND ACCENT (couleurs réelles de l'application) ============ */
+.binome-block{
+  --b-accent:#c6ff3b;
+  --b-accent-2:#eaffb0;
+  --b-soft:rgba(198,255,59,0.12);
+  --b-border:rgba(198,255,59,0.35);
+}
+
+.binome-block .tagline{
+  color:var(--b-accent) !important;
+}
+
+.binome-block .chip{
+  background:var(--b-soft);
+  border-color:var(--b-border);
+  color:var(--b-accent);
+}
+
+.card.binome-block h2,
+.case-study.binome-block h2{
+  color:var(--b-accent-2);
+}
+
+.binome-block .btn-outline{
+  border-color:var(--b-border);
+}
+
+.binome-block .btn-outline:hover,
+.binome-block .btn-outline:focus-visible{
+  border-color:var(--b-accent);
+  color:var(--b-accent);
+}
+
+.card.binome-block:hover,
+.case-study.binome-block:hover{
+  border-color:var(--b-border);
+  box-shadow:0 12px 36px rgba(198,255,59,0.16);
+}
+
+.case-study.binome-block{
+  background:linear-gradient(160deg,rgba(198,255,59,0.07),rgba(255,255,255,0.02));
+  border-color:rgba(198,255,59,0.25);
+}
+
+.case-study.binome-block .visual{
+  border-color:rgba(198,255,59,0.25);
+}
+
+.binome-block .brand-logo{
+  filter:drop-shadow(0 2px 8px rgba(198,255,59,0.4));
+}
+
+.resume.binome-block .when{
+  color:var(--b-accent);
+}
+
 /* ============ RESPONSIVE ============ */
 @media (max-width:640px){
   .nav{
