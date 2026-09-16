@@ -52,16 +52,21 @@
   <div class="content">
     <h1>Siaci <span class="accent-word">Abdennour</span></h1>
     <p class="subtitle"><span data-typed="Développeur Java|Futur profil Fullstack|Créateur de BINÔME"></span></p>
+    <p class="hero-tagline">Je transforme des idées en produits qui tournent vraiment — de BINÔME, testé sur le terrain, à vos prochains projets d'équipe.</p>
     <span class="badge-pill"><span class="dot"></span> Ouvert aux opportunités</span>
     <div class="cta-row">
       <a href="projets.html" class="btn">Voir mes projets</a>
       <a href="contact.html" class="btn-outline">Me contacter</a>
     </div>
   </div>
+  <a href="#stats" class="scroll-cue" aria-label="Défiler vers le bas">
+    <span>Découvrir</span>
+    <span class="arrow"></span>
+  </a>
 </div>
 
 <!-- STATS -->
-<div class="stats-row reveal">
+<div class="stats-row reveal" id="stats">
   <div class="stat">
     <span class="num" data-count="4">0</span>
     <span class="label">Langages maîtrisés</span>
@@ -86,19 +91,27 @@
   <div class="card">
     <h2>À propos</h2>
     <p>
-      Développeur Java avec un niveau intermédiaire, orienté développement web et applications.
+      Développeur Java avec un niveau intermédiaire, orienté développement web et applications — je me concentre sur un socle restreint (Java, SQL, HTML, CSS) que je maîtrise réellement, plutôt que de disperser mes compétences.
     </p>
-    <p>
-      Autodidacte : tout ce que je sais en HTML, CSS et React, je l'ai appris seul, en construisant de vrais projets — dont BINÔME, une application que je conçois et fais évoluer en continu depuis plusieurs mois.
-    </p>
-    <p>
-      Je me concentre sur quatre langages que je maîtrise réellement : Java, SQL, HTML et CSS — plutôt que de disperser mes compétences. J'intègre aussi les outils d'IA à mon flux de travail pour aller plus vite.
-    </p>
-    <p>
-      En dehors du code, j'accompagne aussi quelques personnes en coaching sportif — perte de poids, force et street lifting — une passion qui nourrit directement ma vision du projet BINÔME.
-    </p>
-    <p>
-      Mon objectif est d'intégrer une entreprise en tant que développeur et d'évoluer vers un profil fullstack.
+    <div class="about-highlights">
+      <div class="highlight-item">
+        <span class="hicon">📚</span>
+        <strong>Autodidacte</strong>
+        <span>Tout ce que je sais en HTML, CSS et React, je l'ai appris seul en construisant de vrais projets.</span>
+      </div>
+      <div class="highlight-item">
+        <span class="hicon">🤝</span>
+        <strong>BINÔME</strong>
+        <span>Une application que je conçois et fais évoluer en continu depuis plusieurs mois, déjà testée sur le terrain.</span>
+      </div>
+      <div class="highlight-item">
+        <span class="hicon">🏋️</span>
+        <strong>Coach sportif</strong>
+        <span>En parallèle, j'accompagne quelques personnes en perte de poids, force et street lifting.</span>
+      </div>
+    </div>
+    <p class="about-objective">
+      Mon objectif : intégrer une entreprise en tant que développeur et évoluer vers un profil fullstack.
     </p>
   </div>
 </div>
@@ -164,9 +177,11 @@
 
 <!-- CV -->
 <div class="section reveal">
-  <div class="card">
-    <h2>CV</h2>
-    <p>Télécharge mon CV pour en savoir plus sur mon parcours.</p>
+  <div class="cv-banner">
+    <div class="cv-text">
+      <h2>📄 Envie d'en savoir plus ?</h2>
+      <p>Télécharge mon CV complet pour découvrir tout mon parcours.</p>
+    </div>
     <a href="cv.pdf" class="btn">Télécharger le CV</a>
   </div>
 </div>

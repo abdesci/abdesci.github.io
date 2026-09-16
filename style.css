@@ -1115,6 +1115,199 @@ h1 .accent-word{
   color:var(--b-accent);
 }
 
+/* ============ SPOTLIGHT HOVER (rend les cartes vivantes) ============ */
+.card,
+.lang-card,
+.interest-card,
+.project,
+.radial-card,
+.resume,
+.case-study,
+.ai-tools-tag{
+  position:relative;
+  isolation:isolate;
+}
+
+.card::before,
+.lang-card::before,
+.interest-card::before,
+.project::before,
+.radial-card::before,
+.resume::before,
+.case-study::before,
+.ai-tools-tag::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  border-radius:inherit;
+  opacity:0;
+  transition:opacity 0.4s ease;
+  background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%), rgba(179,19,42,0.16), transparent 65%);
+  pointer-events:none;
+}
+
+.card:hover::before,
+.lang-card:hover::before,
+.interest-card:hover::before,
+.project:hover::before,
+.radial-card:hover::before,
+.resume:hover::before,
+.case-study:hover::before,
+.ai-tools-tag:hover::before{
+  opacity:1;
+}
+
+.binome-block::before{
+  background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%), rgba(198,255,59,0.14), transparent 65%) !important;
+}
+
+/* ============ HERO : mouvement & appel au scroll ============ */
+.split-hero::before{
+  animation:floatGlow 9s ease-in-out infinite alternate;
+}
+
+@keyframes floatGlow{
+  0%{ transform:translate(0,0) scale(1); }
+  100%{ transform:translate(-24px,18px) scale(1.08); }
+}
+
+.hero-tagline{
+  margin-top:16px;
+  max-width:46ch;
+  color:var(--text-dim);
+  font-size:16px;
+  line-height:1.6;
+}
+
+.scroll-cue{
+  position:absolute;
+  left:50%;
+  bottom:28px;
+  transform:translateX(-50%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+  color:var(--text-dim);
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  text-decoration:none;
+  opacity:0.75;
+  transition:opacity 0.3s;
+  z-index:2;
+}
+
+.scroll-cue:hover{
+  opacity:1;
+  color:var(--accent-2);
+}
+
+.scroll-cue .arrow{
+  width:18px;
+  height:18px;
+  border-right:2px solid currentColor;
+  border-bottom:2px solid currentColor;
+  transform:rotate(45deg);
+  animation:bounceDown 1.8s ease-in-out infinite;
+}
+
+@keyframes bounceDown{
+  0%,100%{ transform:rotate(45deg) translate(0,0); }
+  50%{ transform:rotate(45deg) translate(5px,5px); }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .split-hero::before{ animation:none; }
+  .scroll-cue .arrow{ animation:none; }
+}
+
+/* ============ ABOUT — mise en avant (accueil) ============ */
+.about-highlights{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:16px;
+  margin:22px 0 20px;
+}
+
+.about-highlights .highlight-item{
+  padding:18px;
+  border-radius:12px;
+  border:1px solid var(--card-border);
+  background:rgba(255,255,255,0.02);
+  text-align:left;
+}
+
+.about-highlights .highlight-item .hicon{
+  font-size:22px;
+  display:block;
+  margin-bottom:8px;
+}
+
+.about-highlights .highlight-item strong{
+  display:block;
+  color:var(--accent-2);
+  font-family:var(--font-display);
+  margin-bottom:4px;
+}
+
+.about-highlights .highlight-item span{
+  font-size:13.5px;
+  opacity:0.8;
+  line-height:1.5;
+}
+
+.about-objective{
+  margin-top:20px;
+  padding:16px 20px;
+  border-left:3px solid var(--accent);
+  background:rgba(179,19,42,0.06);
+  border-radius:0 10px 10px 0;
+  font-style:italic;
+  color:var(--text);
+}
+
+/* ============ CV — bandeau plein contraste ============ */
+.cv-banner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  flex-wrap:wrap;
+  padding:32px clamp(20px,4vw,40px);
+  border-radius:var(--radius);
+  background:linear-gradient(120deg,var(--accent),var(--accent-2));
+  margin:20px 0;
+}
+
+.cv-banner .cv-text h2{
+  color:#fff5f5;
+  margin-bottom:6px;
+}
+
+.cv-banner .cv-text p{
+  color:rgba(255,245,245,0.85);
+}
+
+.cv-banner .btn{
+  background:#0a0a0c;
+  color:#fff5f5;
+  margin-top:0;
+  flex-shrink:0;
+}
+
+.cv-banner .btn:hover{
+  box-shadow:0 8px 24px rgba(0,0,0,0.4);
+}
+
+@media (max-width:640px){
+  .cv-banner{
+    flex-direction:column;
+    text-align:center;
+  }
+}
+
 /* ============ RESPONSIVE ============ */
 @media (max-width:640px){
   .nav{

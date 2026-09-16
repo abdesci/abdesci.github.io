@@ -190,4 +190,19 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     tick();
   }
+
+  // ---- Effet "spotlight" qui suit la souris sur les cartes ----
+  var glowSelector = ".card, .lang-card, .interest-card, .project, .radial-card, .resume, .case-study, .ai-tools-tag";
+  var glowEls = document.querySelectorAll(glowSelector);
+  if (glowEls.length && window.matchMedia("(hover: hover)").matches) {
+    glowEls.forEach(function (el) {
+      el.addEventListener("mousemove", function (e) {
+        var rect = el.getBoundingClientRect();
+        var x = ((e.clientX - rect.left) / rect.width) * 100;
+        var y = ((e.clientY - rect.top) / rect.height) * 100;
+        el.style.setProperty("--mx", x + "%");
+        el.style.setProperty("--my", y + "%");
+      });
+    });
+  }
 });
