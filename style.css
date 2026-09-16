@@ -1409,6 +1409,45 @@ h1 .accent-word{
   }
 }
 
+/* ============ CTA FINALE (accueil) ============ */
+.closing-cta{
+  text-align:center;
+  padding:48px clamp(20px,4vw,50px);
+  border-radius:var(--radius);
+  background:linear-gradient(135deg,rgba(139,92,246,0.16),rgba(236,72,153,0.16));
+  border:1px solid var(--card-border);
+  position:relative;
+  overflow:hidden;
+}
+
+.closing-cta::before{
+  content:'';
+  position:absolute;
+  width:260px;
+  height:260px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(236,72,153,0.25), transparent 70%);
+  filter:blur(60px);
+  top:-80px;
+  right:-60px;
+  z-index:0;
+}
+
+.closing-cta > *{
+  position:relative;
+  z-index:1;
+}
+
+.closing-cta p{
+  max-width:52ch;
+  margin:0 auto;
+  opacity:0.9;
+}
+
+.closing-cta .btn{
+  margin-top:24px;
+}
+
 /* ============ RESPONSIVE ============ */
 @media (max-width:640px){
   .nav{
