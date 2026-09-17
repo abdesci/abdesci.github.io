@@ -159,6 +159,54 @@ h1, h2, h3{
   display:none;
 }
 
+/* ============ LANGUAGE SWITCH ============ */
+.lang-switch{
+  position:absolute;
+  top:50%;
+  right:20px;
+  transform:translateY(-50%);
+  display:flex;
+  gap:6px;
+  z-index:1001;
+}
+
+.lang-switch a,
+.lang-switch span{
+  padding:4px 10px;
+  border-radius:999px;
+  border:1px solid var(--card-border);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:0.3px;
+  text-decoration:none;
+  color:var(--text-dim);
+  transition:0.25s;
+}
+
+.lang-switch a:hover,
+.lang-switch a:focus-visible{
+  color:var(--accent-2);
+  border-color:var(--accent-2);
+}
+
+.lang-switch span.active{
+  background:var(--accent-soft);
+  color:var(--accent-2);
+  cursor:default;
+}
+
+@media (max-width:640px){
+  .lang-switch{
+    right:60px;
+    gap:4px;
+  }
+  .lang-switch a,
+  .lang-switch span{
+    padding:3px 8px;
+    font-size:10.5px;
+  }
+}
+
 /* ============ LAYOUT ============ */
 .container{
   padding:150px 20px 80px;
