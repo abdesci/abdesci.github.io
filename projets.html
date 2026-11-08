@@ -101,6 +101,91 @@
   </div>
 </div>
 
+<!-- BINÔME : SOUS LE CAPOT -->
+<div class="section reveal binome-tech" id="sous-le-capot">
+  <span class="eyebrow">Sous le capot</span>
+  <h2 class="section-heading">Comment BINÔME est construit</h2>
+  <p class="section-intro">Une application web complète, sans framework, adossée à Supabase. Le code source reste privé avant le lancement ; voici l'architecture et quelques extraits réels.</p>
+
+  <div class="stats-row tech-facts">
+    <div class="stat"><span class="num">~4 500</span><span class="label">lignes de code</span></div>
+    <div class="stat"><span class="num">4</span><span class="label">langues : FR, EN, IT, ES</span></div>
+    <div class="stat"><span class="num">2</span><span class="label">fonctions serveur (Edge Functions)</span></div>
+    <div class="stat"><span class="num">RLS</span><span class="label">sécurité au niveau des lignes</span></div>
+  </div>
+
+  <div class="arch" role="img" aria-label="Comment BINÔME est construit">
+    <div class="arch-node arch-front"><strong>Application web</strong><span>HTML · CSS · JavaScript<br>swipe, chat, diète, i18n</span></div>
+    <div class="arch-link" aria-hidden="true"><span>supabase-js</span></div>
+    <div class="arch-group">
+      <strong>Supabase</strong>
+      <div class="arch-row">
+        <div class="arch-node">Auth<small>connexion par code SMS</small></div>
+        <div class="arch-node">PostgreSQL + RLS<small>profils, séances, messages</small></div>
+        <div class="arch-node">Storage<small>photos, stories</small></div>
+      </div>
+      <strong>Edge Functions</strong>
+      <div class="arch-row">
+        <div class="arch-node">ai-proxy<small>clé API gardée côté serveur</small></div>
+        <div class="arch-node">delete-account<small>suppression des données</small></div>
+      </div>
+    </div>
+    <div class="arch-link" aria-hidden="true"><span>HTTPS</span></div>
+    <div class="arch-node arch-ai"><strong>API Claude</strong><span>estimation des repas<br>et objectifs nutritionnels</span></div>
+  </div>
+
+  <h3 class="code-title">Extraits du code</h3>
+  <div class="code-tabs">
+    <div class="code-tablist" role="tablist">
+      <button type="button" role="tab" id="tab-swipe" aria-controls="pane-swipe" aria-selected="true">commitSwipeDecision()</button><button type="button" role="tab" id="tab-diet" aria-controls="pane-diet" aria-selected="false" tabindex="-1">computeBMR() · computeTDEE()</button><button type="button" role="tab" id="tab-ai" aria-controls="pane-ai" aria-selected="false" tabindex="-1">estimateMealWithAI()</button>
+    </div>
+    <pre role="tabpanel" id="pane-swipe" aria-labelledby="tab-swipe"><code><span class="t-com">// Swipe à droite : on rejoint la séance (table Supabase protégée par RLS)</span>
+<span class="t-kw">async</span> <span class="t-kw">function</span> commitSwipeDecision(sess, liked){
+  <span class="t-kw">if</span>(liked){
+    <span class="t-kw">if</span>(!myProfile){ openWizard(); <span class="t-kw">return</span>; }
+    <span class="t-kw">const</span> { error } = <span class="t-kw">await</span> sb.from(<span class="t-str">&#x27;session_joiners&#x27;</span>)
+      .insert({ session_id: sess.id, user_id: myProfile.id });
+    <span class="t-kw">if</span>(!error){
+      sess.joiners = sess.joiners || [];
+      sess.joiners.push(myProfile.name);
+      createNotif(sess, myProfile.name); <span class="t-com">// prévient l&#x27;auteur de la séance</span>
+    }
+  } <span class="t-kw">else</span> {
+    <span class="t-com">// Swipe à gauche : la séance ne sera plus proposée</span>
+    passedSessionIds.push(sess.id);
+    <span class="t-kw">await</span> savePassed();
+  }
+  renderFeed();
+}</code></pre><pre role="tabpanel" id="pane-diet" aria-labelledby="tab-diet" hidden><code><span class="t-com">// Besoins caloriques : formule de Mifflin-St Jeor + niveau d&#x27;activité</span>
+<span class="t-kw">function</span> computeBMR(poids, taille, age, sexe){
+  <span class="t-kw">if</span>(!poids || !taille || !age) <span class="t-kw">return</span> <span class="t-kw">null</span>;
+  <span class="t-kw">const</span> base = <span class="t-num">10</span> * poids + <span class="t-num">6.25</span> * taille - <span class="t-num">5</span> * age;
+  <span class="t-kw">return</span> Math.round(sexe === <span class="t-str">&#x27;Femme&#x27;</span> ? base - <span class="t-num">161</span> : base + <span class="t-num">5</span>);
+}
+
+<span class="t-kw">function</span> computeTDEE(bmr, activityLevel){
+  <span class="t-kw">return</span> Math.round(bmr * (ACTIVITY_MULTIPLIERS[activityLevel] || <span class="t-num">1.375</span>));
+}
+
+<span class="t-com">// Puis : déficit ou surplus calculé à partir du poids visé</span>
+<span class="t-com">// et du délai souhaité, plafonné pour rester réaliste.</span></code></pre><pre role="tabpanel" id="pane-ai" aria-labelledby="tab-ai" hidden><code><span class="t-com">// Estimation nutritionnelle d&#x27;un repas décrit en texte libre</span>
+<span class="t-kw">async</span> <span class="t-kw">function</span> estimateMealWithAI(description, lang){
+  <span class="t-kw">const</span> key = normalizeMealDesc(description);
+  <span class="t-com">// Cache : un même plat renvoie toujours le même résultat</span>
+  <span class="t-kw">if</span>(mealEstimateCache[key]){
+    <span class="t-kw">return</span> { ...mealEstimateCache[key], fromCache: <span class="t-kw">true</span> };
+  }
+  <span class="t-com">// La clé API reste côté serveur : on passe par une Edge Function</span>
+  <span class="t-kw">const</span> res = <span class="t-kw">await</span> sb.functions.invoke(<span class="t-str">&#x27;ai-proxy&#x27;</span>, {
+    body: { max_tokens: <span class="t-num">300</span>, messages: [{ role: <span class="t-str">&quot;user&quot;</span>, content: instructions }] },
+  });
+  <span class="t-kw">if</span>(res.error) <span class="t-kw">throw</span> <span class="t-kw">new</span> Error(<span class="t-str">&#x27;network&#x27;</span>);
+  <span class="t-com">// … réponse JSON stricte : { name, kcal, prot, carbs, fat }</span>
+}</code></pre>
+  </div>
+  <p class="code-note">Code complet disponible sur demande, en entretien.</p>
+</div>
+
 <!-- PROJETS SECONDAIRES -->
 <div class="secondary-projects">
     <div class="project">

@@ -101,6 +101,91 @@
   </div>
 </div>
 
+<!-- BINÔME : SOUS LE CAPOT -->
+<div class="section reveal binome-tech" id="sous-le-capot">
+  <span class="eyebrow">Under the hood</span>
+  <h2 class="section-heading">How BINÔME is built</h2>
+  <p class="section-intro">A complete web app, framework-free, backed by Supabase. The source code stays private until launch; here is the architecture and a few real excerpts.</p>
+
+  <div class="stats-row tech-facts">
+    <div class="stat"><span class="num">~4,500</span><span class="label">lines of code</span></div>
+    <div class="stat"><span class="num">4</span><span class="label">languages: FR, EN, IT, ES</span></div>
+    <div class="stat"><span class="num">2</span><span class="label">server functions (Edge Functions)</span></div>
+    <div class="stat"><span class="num">RLS</span><span class="label">row-level security</span></div>
+  </div>
+
+  <div class="arch" role="img" aria-label="How BINÔME is built">
+    <div class="arch-node arch-front"><strong>Web app</strong><span>HTML · CSS · JavaScript<br>swipe, chat, diet, i18n</span></div>
+    <div class="arch-link" aria-hidden="true"><span>supabase-js</span></div>
+    <div class="arch-group">
+      <strong>Supabase</strong>
+      <div class="arch-row">
+        <div class="arch-node">Auth<small>SMS code sign-in</small></div>
+        <div class="arch-node">PostgreSQL + RLS<small>profiles, sessions, messages</small></div>
+        <div class="arch-node">Storage<small>photos, stories</small></div>
+      </div>
+      <strong>Edge Functions</strong>
+      <div class="arch-row">
+        <div class="arch-node">ai-proxy<small>API key kept server-side</small></div>
+        <div class="arch-node">delete-account<small>data deletion</small></div>
+      </div>
+    </div>
+    <div class="arch-link" aria-hidden="true"><span>HTTPS</span></div>
+    <div class="arch-node arch-ai"><strong>Claude API</strong><span>meal estimates<br>and nutrition goals</span></div>
+  </div>
+
+  <h3 class="code-title">Code excerpts</h3>
+  <div class="code-tabs">
+    <div class="code-tablist" role="tablist">
+      <button type="button" role="tab" id="tab-swipe" aria-controls="pane-swipe" aria-selected="true">commitSwipeDecision()</button><button type="button" role="tab" id="tab-diet" aria-controls="pane-diet" aria-selected="false" tabindex="-1">computeBMR() · computeTDEE()</button><button type="button" role="tab" id="tab-ai" aria-controls="pane-ai" aria-selected="false" tabindex="-1">estimateMealWithAI()</button>
+    </div>
+    <pre role="tabpanel" id="pane-swipe" aria-labelledby="tab-swipe"><code><span class="t-com">// Swipe right: join the session (Supabase table protected by RLS)</span>
+<span class="t-kw">async</span> <span class="t-kw">function</span> commitSwipeDecision(sess, liked){
+  <span class="t-kw">if</span>(liked){
+    <span class="t-kw">if</span>(!myProfile){ openWizard(); <span class="t-kw">return</span>; }
+    <span class="t-kw">const</span> { error } = <span class="t-kw">await</span> sb.from(<span class="t-str">&#x27;session_joiners&#x27;</span>)
+      .insert({ session_id: sess.id, user_id: myProfile.id });
+    <span class="t-kw">if</span>(!error){
+      sess.joiners = sess.joiners || [];
+      sess.joiners.push(myProfile.name);
+      createNotif(sess, myProfile.name); <span class="t-com">// notifies the session&#x27;s author</span>
+    }
+  } <span class="t-kw">else</span> {
+    <span class="t-com">// Swipe left: the session won&#x27;t be shown again</span>
+    passedSessionIds.push(sess.id);
+    <span class="t-kw">await</span> savePassed();
+  }
+  renderFeed();
+}</code></pre><pre role="tabpanel" id="pane-diet" aria-labelledby="tab-diet" hidden><code><span class="t-com">// Calorie needs: Mifflin-St Jeor formula + activity level</span>
+<span class="t-kw">function</span> computeBMR(poids, taille, age, sexe){
+  <span class="t-kw">if</span>(!poids || !taille || !age) <span class="t-kw">return</span> <span class="t-kw">null</span>;
+  <span class="t-kw">const</span> base = <span class="t-num">10</span> * poids + <span class="t-num">6.25</span> * taille - <span class="t-num">5</span> * age;
+  <span class="t-kw">return</span> Math.round(sexe === <span class="t-str">&#x27;Femme&#x27;</span> ? base - <span class="t-num">161</span> : base + <span class="t-num">5</span>);
+}
+
+<span class="t-kw">function</span> computeTDEE(bmr, activityLevel){
+  <span class="t-kw">return</span> Math.round(bmr * (ACTIVITY_MULTIPLIERS[activityLevel] || <span class="t-num">1.375</span>));
+}
+
+<span class="t-com">// Then: deficit or surplus computed from the target weight</span>
+<span class="t-com">// and the desired timeframe, capped to stay realistic.</span></code></pre><pre role="tabpanel" id="pane-ai" aria-labelledby="tab-ai" hidden><code><span class="t-com">// Nutrition estimate for a meal described in free text</span>
+<span class="t-kw">async</span> <span class="t-kw">function</span> estimateMealWithAI(description, lang){
+  <span class="t-kw">const</span> key = normalizeMealDesc(description);
+  <span class="t-com">// Cache: the same dish always returns the same result</span>
+  <span class="t-kw">if</span>(mealEstimateCache[key]){
+    <span class="t-kw">return</span> { ...mealEstimateCache[key], fromCache: <span class="t-kw">true</span> };
+  }
+  <span class="t-com">// The API key stays server-side: we go through an Edge Function</span>
+  <span class="t-kw">const</span> res = <span class="t-kw">await</span> sb.functions.invoke(<span class="t-str">&#x27;ai-proxy&#x27;</span>, {
+    body: { max_tokens: <span class="t-num">300</span>, messages: [{ role: <span class="t-str">&quot;user&quot;</span>, content: instructions }] },
+  });
+  <span class="t-kw">if</span>(res.error) <span class="t-kw">throw</span> <span class="t-kw">new</span> Error(<span class="t-str">&#x27;network&#x27;</span>);
+  <span class="t-com">// … strict JSON response: { name, kcal, prot, carbs, fat }</span>
+}</code></pre>
+  </div>
+  <p class="code-note">Full source code available on request, during an interview.</p>
+</div>
+
 <!-- SECONDARY PROJECTS -->
 <div class="secondary-projects">
     <div class="project">

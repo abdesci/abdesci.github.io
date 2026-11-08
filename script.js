@@ -602,3 +602,25 @@ document.addEventListener("DOMContentLoaded", function () {
     hovered = null;
   });
 });
+
+// ---- Onglets des extraits de code (page Projets) ----
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".code-tabs").forEach(function (box) {
+    var tabs = Array.prototype.slice.call(box.querySelectorAll('[role="tab"]'));
+    function select(tab) {
+      tabs.forEach(function (t) {
+        var on = t === tab;
+        t.setAttribute("aria-selected", on ? "true" : "false");
+        t.tabIndex = on ? 0 : -1;
+        document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
+      });
+    }
+    tabs.forEach(function (tab, i) {
+      tab.addEventListener("click", function () { select(tab); });
+      tab.addEventListener("keydown", function (e) {
+        var next = e.key === "ArrowRight" ? tabs[(i + 1) % tabs.length] : e.key === "ArrowLeft" ? tabs[(i - 1 + tabs.length) % tabs.length] : null;
+        if (next) { e.preventDefault(); select(next); next.focus(); }
+      });
+    });
+  });
+});
