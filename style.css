@@ -2690,3 +2690,18 @@ body.cursor-on .cursor-coords{
 .project h2{
   font-size:24px;
 }
+
+/* Appel à l'action en bas des pages */
+.closing-cta .cta-row{
+  justify-content:center;
+  margin-top:10px;
+}
+
+.page-cta{
+  margin-top:80px;
+}
+
+.closing-cta .cta-row .btn,
+.closing-cta .cta-row .btn-outline{
+  margin-top:14px;
+}
