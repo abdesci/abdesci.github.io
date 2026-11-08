@@ -209,9 +209,8 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // ==========================================================
-// Style « studio tech » : intro, curseurs pixel, sections qui se
-// construisent avec des cadres d'inspecteur, texte qui se déchiffre,
-// effet glitch, inspecteur qui suit la souris.
+// Couche d'animation : curseurs pixel colorés, inspecteur qui suit
+// la souris, apparitions au scroll, cartes 3D, boutons magnétiques.
 // Tout est coupé si l'utilisateur préfère moins d'animations.
 // ==========================================================
 document.addEventListener("DOMContentLoaded", function () {
@@ -292,7 +291,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var frame = document.createElement("span");
     frame.className = "avatar-frame";
     frame.setAttribute("aria-hidden", "true");
-    frame.innerHTML = "<i></i><i></i><i></i><i></i><b>img#siaci.dev</b><u></u>";
+    frame.innerHTML = "<i></i><i></i><i></i><i></i><b>Siaci Abdennour · Java</b><u></u>";
     stage.appendChild(frame);
     var sizeLabel = frame.querySelector("u");
     var setSize = function () {
@@ -318,120 +317,17 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  if (reduced) {
-    root.classList.remove("intro");
-    return;
-  }
+  if (reduced) return;
 
-  // ---------- Texte qui se déchiffre ----------
-  var GLYPHS = "!<>-_\\/[]{}=+*^?#01ABCDEFXZ";
-  function scramble(el, duration) {
-    if (el.dataset.scrambled) return;
-    el.dataset.scrambled = "1";
-    if (!el.hasAttribute("aria-label") && /^H[1-3]$/.test(el.tagName)) {
-      el.setAttribute("aria-label", el.textContent.replace(/\s+/g, " ").trim());
-    }
-    var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
-    var nodes = [];
-    while (walker.nextNode()) {
-      if (walker.currentNode.textContent.trim()) nodes.push(walker.currentNode);
-    }
-    var items = nodes.map(function (n) {
-      var text = n.textContent;
-      return {
-        node: n,
-        text: text,
-        ends: Array.from(text).map(function () {
-          return Math.random() * duration * 0.7 + duration * 0.3;
-        })
-      };
-    });
-    var start = performance.now();
-    (function frame(now) {
-      var t = now - start;
-      var running = false;
-      items.forEach(function (it) {
-        var out = "";
-        Array.from(it.text).forEach(function (ch, i) {
-          if (t >= it.ends[i] || /\s/.test(ch)) out += ch;
-          else {
-            running = true;
-            out += GLYPHS.charAt((Math.random() * GLYPHS.length) | 0);
-          }
-        });
-        it.node.textContent = out;
-      });
-      if (running) requestAnimationFrame(frame);
-      else {
-        items.forEach(function (it) { it.node.textContent = it.text; });
-        glitch(el);
-      }
-    })(start);
-  }
-
-  function glitch(el) {
-    el.classList.remove("glitch");
-    void el.offsetWidth;
-    el.classList.add("glitch");
-    setTimeout(function () { el.classList.remove("glitch"); }, 520);
-  }
-
-  // ---------- Cadres d'inspecteur qui construisent une section ----------
-  var BUILD_SELECTOR =
-    "h1, h2, .eyebrow, .page-title, .card, .lang-card, .stat, .highlight-item, .interest-card, .project, .resume, .item .card, .case-study .visual, .brand-row, .btn, .btn-outline, .cv-banner, .ai-tools-tag, .radial-card, .contact-split .lede";
+  // Nom court d'un élément, façon inspecteur de code (ex. « a.btn »)
   function labelFor(el) {
     var tag = el.tagName.toLowerCase();
     var cls = (el.className && typeof el.className === "string" ? el.className : "")
       .split(/\s+/)
       .filter(function (c) {
-        return c && !/^(reveal|visible|tilt|tilting|stagger|in|done|glitch|from-left)$/.test(c);
+        return c && !/^(reveal|visible|tilt|tilting|stagger|in|done|from-left)$/.test(c);
       })[0];
     return tag + (cls ? "." + cls : "");
-  }
-
-  function build(section) {
-    var bodyRect = document.body.getBoundingClientRect();
-    var targets = [];
-    if (section.matches(BUILD_SELECTOR)) targets.push(section);
-    section.querySelectorAll(BUILD_SELECTOR).forEach(function (el) {
-      targets.push(el);
-    });
-    targets = targets.filter(function (el) {
-      var r = el.getBoundingClientRect();
-      return r.width > 20 && r.height > 12 && r.top < window.innerHeight + 200;
-    }).slice(0, 12);
-
-    targets.forEach(function (el, i) {
-      var r = el.getBoundingClientRect();
-      var box = document.createElement("div");
-      box.className = "wf-box" + (Math.random() < 0.12 ? " red" : "");
-      box.setAttribute("aria-hidden", "true");
-      box.style.left = r.left - bodyRect.left + "px";
-      box.style.top = r.top - bodyRect.top + "px";
-      box.style.width = r.width + "px";
-      box.style.height = r.height + "px";
-      box.style.setProperty("--d", i * 70 + "ms");
-      box.innerHTML = "<b>" + labelFor(el) + " · " + Math.round(r.width) + "×" + Math.round(r.height) + "</b>";
-      document.body.appendChild(box);
-      setTimeout(function () { box.remove(); }, 1300 + i * 70);
-    });
-
-    // Ligne de repère rouge le long de la section
-    var sr = section.getBoundingClientRect();
-    if (sr.height > 40) {
-      var guide = document.createElement("div");
-      guide.className = "wf-guide";
-      guide.setAttribute("aria-hidden", "true");
-      guide.style.left = sr.left - bodyRect.left - 12 + "px";
-      guide.style.top = sr.top - bodyRect.top + "px";
-      guide.style.height = sr.height + "px";
-      document.body.appendChild(guide);
-      setTimeout(function () { guide.remove(); }, 1400);
-    }
-
-    section.querySelectorAll("h2, .eyebrow, .page-title").forEach(function (h) {
-      scramble(h, 700);
-    });
   }
 
   // ---------- Apparitions en cascade dans les grilles ----------
@@ -452,35 +348,14 @@ document.addEventListener("DOMContentLoaded", function () {
     if (el.classList.contains("item")) el.classList.add("from-left");
   });
 
-  // ---------- Démarrage de la page (après l'intro s'il y en a une) ----------
-  var started = false;
-  function startPage() {
-    if (started) return;
-    started = true;
-    root.classList.remove("intro");
+  onVisible(staggerEls, function (grid) {
+    grid.classList.add("in");
+    setTimeout(function () { grid.classList.add("done"); }, 700 + grid.children.length * 80);
+  });
 
-    onVisible(staggerEls, function (grid) {
-      grid.classList.add("in");
-      setTimeout(function () { grid.classList.add("done"); }, 700 + grid.children.length * 80);
-    });
-
-    // Chaque section se construit quand elle arrive à l'écran
-    var sections = document.querySelectorAll(
-      "#main > .section, #main > .stats-row, #main > .split-hero, .container > .section, .container > .case-study, .container > .project, .container > .resume, .container > .item, .container .timeline .item, .container > .contact-split, .container > .page-title, .secondary-projects > *"
-    );
-    onVisible(sections, function (sec) {
-      sec.classList.add("visible");
-      build(sec);
-    }, 0.2);
-
-    onVisible(document.querySelectorAll(".reveal"), function (el) {
-      el.classList.add("visible");
-    });
-
-    document.querySelectorAll(".split-hero h1, h1.page-title, .contact-split h1").forEach(function (h) {
-      scramble(h, 1000);
-    });
-  }
+  onVisible(document.querySelectorAll(".reveal"), function (el) {
+    el.classList.add("visible");
+  });
 
   // ---------- Transitions entre les pages ----------
   document.addEventListener("click", function (e) {
@@ -554,7 +429,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  var ambient = W < 700 ? 7 : 14;
+  var ambient = W < 700 ? 6 : 11;
   for (var k = 0; k < ambient; k++) {
     spawn(Math.random() * W, Math.random() * H, 0.9, Infinity);
   }
@@ -607,7 +482,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (p.y < -40) p.y = H + 40;
         if (p.y > H + 40) p.y = -40;
       }
-      var alpha = p.life === Infinity ? 0.9 : Math.min(1, p.life / (p.max * 0.4));
+      var alpha = p.life === Infinity ? 0.7 : Math.min(1, p.life / (p.max * 0.4));
       var angle = Math.atan2(p.vy, p.vx);
       ctx.save();
       ctx.translate(Math.round(p.x), Math.round(p.y));
@@ -638,45 +513,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Un clic n'importe où fait jaillir quelques curseurs
   document.addEventListener("pointerdown", function (e) {
-    if (root.classList.contains("intro")) return;
     for (var b = 0; b < 7; b++) spawn(e.clientX, e.clientY, 4, 70 + Math.random() * 40);
   });
-
-  // ---------- Écran d'intro (première visite de la session) ----------
-  if (root.classList.contains("intro")) {
-    var screen = document.createElement("div");
-    screen.className = "intro-screen";
-    screen.innerHTML =
-      '<div class="intro-inner">' +
-      '<button class="intro-btn" type="button" aria-label="' + (isEN ? "Enter the site" : "Entrer sur le site") + '">' +
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 3v8"/><path d="M6.3 7.4a8 8 0 1 0 11.4 0"/></svg>' +
-      "</button>" +
-      '<span class="intro-hint"><b>siaci.dev</b> · ' + (isEN ? "click to boot" : "cliquer pour démarrer") + "</span>" +
-      "</div>";
-    document.body.appendChild(screen);
-    var introBtn = screen.querySelector(".intro-btn");
-    introBtn.focus({ preventScroll: true });
-
-    var enter = function () {
-      if (screen.classList.contains("gone")) return;
-      try { sessionStorage.setItem("introSeen", "1"); } catch (e) {}
-      var r = introBtn.getBoundingClientRect();
-      var cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-      for (var b = 0; b < 46; b++) spawn(cx, cy, 9, 90 + Math.random() * 70);
-      screen.classList.add("gone");
-      setTimeout(function () {
-        startPage();
-        screen.remove();
-      }, 450);
-    };
-    introBtn.addEventListener("click", enter);
-    document.addEventListener("keydown", function onKey(e) {
-      if (e.key === "Escape") { enter(); document.removeEventListener("keydown", onKey); }
-    });
-    setTimeout(enter, 5000); // démarre tout seul si personne ne clique
-  } else {
-    startPage();
-  }
 
   // ---------- Interactions à la souris (ordinateurs) ----------
   if (!finePointer) return;
@@ -751,7 +589,6 @@ document.addEventListener("DOMContentLoaded", function () {
     coords.style.transform = "translate(" + (e.clientX + 16) + "px," + (e.clientY + 18) + "px)";
     coords.textContent = "x:" + e.clientX + " y:" + (e.clientY + Math.round(window.scrollY));
     var t = e.target.closest && e.target.closest("a, button, .chip, .lang-card, .interest-card, .highlight-item, .stat, .radial-card");
-    if (t && t.closest(".intro-screen")) t = null;
     if (t !== hovered) {
       hovered = t;
       inspect.classList.toggle("on", !!t);
