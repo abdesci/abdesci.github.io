@@ -209,27 +209,28 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // ==========================================================
-// Couche d'animation : fond animé, curseur, titres lettre par
-// lettre, cartes 3D, boutons magnétiques, transitions de page…
+// Style « studio tech » : intro, curseurs pixel, sections qui se
+// construisent avec des cadres d'inspecteur, texte qui se déchiffre,
+// effet glitch, inspecteur qui suit la souris.
 // Tout est coupé si l'utilisateur préfère moins d'animations.
 // ==========================================================
 document.addEventListener("DOMContentLoaded", function () {
+  var root = document.documentElement;
+  var isEN = root.lang === "en";
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
   var hasIO = "IntersectionObserver" in window;
 
   function onVisible(els, cb, threshold) {
+    els = Array.prototype.slice.call(els);
     if (!els.length) return;
-    if (!hasIO) {
-      els.forEach(cb);
-      return;
-    }
+    if (!hasIO) return els.forEach(cb);
     var obs = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
-            cb(entry.target);
             obs.unobserve(entry.target);
+            cb(entry.target);
           }
         });
       },
@@ -240,7 +241,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // ---- Barre de progression + bouton retour en haut ----
+  // ---------- Barre de progression + retour en haut ----------
   var progress = document.createElement("div");
   progress.className = "scroll-progress";
   progress.setAttribute("aria-hidden", "true");
@@ -249,14 +250,10 @@ document.addEventListener("DOMContentLoaded", function () {
   var toTop = document.createElement("button");
   toTop.className = "to-top";
   toTop.type = "button";
-  toTop.setAttribute("aria-label", document.documentElement.lang === "en" ? "Back to top" : "Retour en haut");
-  toTop.innerHTML =
-    '<svg viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="toTopGrad" x1="0" y1="0" x2="1" y2="1">' +
-    '<stop offset="0" stop-color="#8b5cf6"/><stop offset="1" stop-color="#ec4899"/></linearGradient></defs>' +
-    '<circle class="track" cx="24" cy="24" r="22"/><circle class="bar" cx="24" cy="24" r="22"/></svg>' +
-    '<span class="chev" aria-hidden="true"></span>';
+  toTop.setAttribute("aria-label", isEN ? "Back to top" : "Retour en haut");
+  toTop.innerHTML = '<span class="fill" aria-hidden="true"></span><span class="chev" aria-hidden="true"></span>';
   document.body.appendChild(toTop);
-  var toTopBar = toTop.querySelector(".bar");
+  var toTopFill = toTop.querySelector(".fill");
   toTop.addEventListener("click", function () {
     window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
   });
@@ -268,7 +265,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var max = document.documentElement.scrollHeight - window.innerHeight;
     var ratio = max > 0 ? Math.min(window.scrollY / max, 1) : 0;
     progress.style.transform = "scaleX(" + ratio + ")";
-    toTopBar.style.strokeDashoffset = 138.2 * (1 - ratio);
+    toTopFill.style.transform = "scaleY(" + ratio + ")";
     toTop.classList.toggle("show", window.scrollY > 500);
     if (timeline && !reduced) {
       var r = timeline.getBoundingClientRect();
@@ -276,138 +273,36 @@ document.addEventListener("DOMContentLoaded", function () {
       timeline.style.setProperty("--line", Math.max(0, Math.min(seen, 1)));
     }
   }
-  window.addEventListener(
-    "scroll",
-    function () {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(updateScroll);
-      }
-    },
-    { passive: true }
-  );
+  window.addEventListener("scroll", function () {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(updateScroll);
+    }
+  }, { passive: true });
   window.addEventListener("resize", updateScroll);
   updateScroll();
 
-  // ---- CTA finale : fond intérieur pour la bordure animée ----
-  document.querySelectorAll(".closing-cta").forEach(function (el) {
-    var bg = document.createElement("span");
-    bg.className = "cta-bg";
-    bg.setAttribute("aria-hidden", "true");
-    el.insertBefore(bg, el.firstChild);
-  });
-
-  // ---- Avatar : anneau et orbites ----
+  // ---------- Avatar dans un cadre d'inspecteur ----------
   var avatar = document.querySelector(".split-hero .avatar-wrap");
   if (avatar) {
     var stage = document.createElement("div");
     stage.className = "avatar-stage";
     avatar.parentNode.insertBefore(stage, avatar);
     stage.appendChild(avatar);
-    stage.insertAdjacentHTML(
-      "beforeend",
-      '<span class="orbit" aria-hidden="true"><i></i><i></i></span><span class="orbit o2" aria-hidden="true"><i></i></span>'
-    );
+    var frame = document.createElement("span");
+    frame.className = "avatar-frame";
+    frame.setAttribute("aria-hidden", "true");
+    frame.innerHTML = "<i></i><i></i><i></i><i></i><b>img#siaci.dev</b><u></u>";
+    stage.appendChild(frame);
+    var sizeLabel = frame.querySelector("u");
+    var setSize = function () {
+      sizeLabel.textContent = Math.round(avatar.offsetWidth) + " × " + Math.round(avatar.offsetHeight);
+    };
+    setSize();
+    window.addEventListener("resize", setSize);
   }
 
-  // ---- Apparitions en cascade dans les grilles ----
-  var staggerEls = document.querySelectorAll(
-    ".lang-grid, .interest-grid, .about-highlights, .stats-row, .radial-grid, .secondary-projects, .stat-chips, .contact-split .cards"
-  );
-  if (!reduced) {
-    staggerEls.forEach(function (grid) {
-      grid.classList.add("stagger");
-      Array.prototype.forEach.call(grid.children, function (child, i) {
-        child.style.setProperty("--si", i);
-      });
-    });
-    onVisible(Array.prototype.slice.call(staggerEls), function (grid) {
-      grid.classList.add("in");
-      setTimeout(function () {
-        grid.classList.add("done");
-      }, 700 + grid.children.length * 90);
-    });
-
-    // Éléments des pages internes qui n'avaient pas encore d'apparition
-    var extra = [];
-    document.querySelectorAll(".project, .resume, .item, .case-study, .card").forEach(function (el) {
-      if (el.closest(".reveal") || el.closest(".stagger")) return;
-      el.classList.add("reveal");
-      if (el.classList.contains("item")) el.classList.add("from-left");
-      extra.push(el);
-    });
-    onVisible(extra, function (el) {
-      el.classList.add("visible");
-    });
-  }
-
-  // ---- Titres : découpage lettre par lettre ----
-  if (!reduced) {
-    document.querySelectorAll(".split-hero h1, h1.page-title, .contact-split h1").forEach(function (h) {
-      var label = h.textContent.replace(/\s+/g, " ").trim();
-      var ci = 0;
-      function split(node) {
-        Array.prototype.slice.call(node.childNodes).forEach(function (child) {
-          if (child.nodeType === 3) {
-            var frag = document.createDocumentFragment();
-            child.textContent.split(/(\s+)/).forEach(function (part) {
-              if (!part) return;
-              if (/^\s+$/.test(part)) {
-                frag.appendChild(document.createTextNode(" "));
-                return;
-              }
-              var word = document.createElement("span");
-              word.className = "split-word";
-              Array.from(part).forEach(function (ch) {
-                var c = document.createElement("span");
-                c.className = "split-char";
-                c.textContent = ch;
-                c.style.setProperty("--ci", ci++);
-                word.appendChild(c);
-              });
-              frag.appendChild(word);
-            });
-            node.replaceChild(frag, child);
-          } else if (child.nodeType === 1 && child.classList.contains("accent-word")) {
-            // Le mot en dégradé apparaît d'un bloc (le dégradé ne survit pas au découpage)
-            child.classList.add("split-block");
-            child.style.setProperty("--ci", ci);
-            ci += 4;
-          } else if (child.nodeType === 1) {
-            split(child);
-          }
-        });
-      }
-      split(h);
-      h.setAttribute("aria-label", label);
-      Array.prototype.forEach.call(h.children, function (c) {
-        c.setAttribute("aria-hidden", "true");
-      });
-    });
-  }
-
-  // ---- Transitions entre les pages ----
-  if (!reduced) {
-    document.addEventListener("click", function (e) {
-      var a = e.target.closest("a");
-      if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-      if (a.target === "_blank" || a.hasAttribute("download")) return;
-      var href = a.getAttribute("href") || "";
-      if (!href || href.charAt(0) === "#" || /^(mailto:|tel:|javascript:)/i.test(href) || /\.pdf($|\?)/i.test(href)) return;
-      if (a.origin !== window.location.origin) return;
-      if (a.pathname === window.location.pathname && a.hash) return;
-      e.preventDefault();
-      document.body.classList.add("page-leave");
-      setTimeout(function () {
-        window.location.href = a.href;
-      }, 280);
-    });
-    window.addEventListener("pageshow", function (e) {
-      if (e.persisted) document.body.classList.remove("page-leave");
-    });
-  }
-
-  // ---- Effet d'onde au clic sur les boutons ----
+  // ---------- Effet d'onde au clic sur les boutons ----------
   document.querySelectorAll(".btn, .btn-outline").forEach(function (btn) {
     btn.addEventListener("click", function (e) {
       if (reduced) return;
@@ -419,110 +314,217 @@ document.addEventListener("DOMContentLoaded", function () {
       dot.style.left = e.clientX - r.left - size / 2 + "px";
       dot.style.top = e.clientY - r.top - size / 2 + "px";
       btn.appendChild(dot);
-      setTimeout(function () {
-        dot.remove();
-      }, 650);
+      setTimeout(function () { dot.remove(); }, 650);
     });
   });
 
-  if (reduced) return;
-
-  // ---- Tout ce qui suit dépend de la souris ----
-  if (finePointer) {
-    // Cartes inclinables en 3D
-    document
-      .querySelectorAll(".lang-card, .interest-card, .radial-card, .project, .highlight-item, .case-study .visual")
-      .forEach(function (el) {
-        el.classList.add("tilt");
-        el.addEventListener("mousemove", function (e) {
-          var r = el.getBoundingClientRect();
-          var x = (e.clientX - r.left) / r.width - 0.5;
-          var y = (e.clientY - r.top) / r.height - 0.5;
-          el.classList.add("tilting");
-          el.style.transform =
-            "perspective(700px) rotateX(" + (-y * 10).toFixed(2) + "deg) rotateY(" + (x * 10).toFixed(2) + "deg) translateY(-6px)";
-        });
-        el.addEventListener("mouseleave", function () {
-          el.classList.remove("tilting");
-          el.style.transform = "";
-        });
-      });
-
-    // Boutons magnétiques
-    document.querySelectorAll(".btn, .btn-outline, .to-top").forEach(function (btn) {
-      btn.addEventListener("mousemove", function (e) {
-        var r = btn.getBoundingClientRect();
-        var x = e.clientX - r.left - r.width / 2;
-        var y = e.clientY - r.top - r.height / 2;
-        btn.style.transform = "translate(" + x * 0.25 + "px," + y * 0.35 + "px)";
-      });
-      btn.addEventListener("mouseleave", function () {
-        btn.style.transform = "";
-      });
-    });
-
-    // Parallaxe de l'avatar sur l'accueil
-    var hero = document.querySelector(".split-hero");
-    var heroVisual = hero && hero.querySelector(".visual");
-    if (heroVisual) {
-      hero.addEventListener("mousemove", function (e) {
-        var r = hero.getBoundingClientRect();
-        var x = (e.clientX - r.left) / r.width - 0.5;
-        var y = (e.clientY - r.top) / r.height - 0.5;
-        heroVisual.style.transform =
-          "translate(" + x * 24 + "px," + y * 24 + "px) rotateY(" + x * 12 + "deg) rotateX(" + -y * 12 + "deg)";
-      });
-      hero.addEventListener("mouseleave", function () {
-        heroVisual.style.transform = "";
-      });
-    }
-
-    // Curseur personnalisé
-    var dot = document.createElement("div");
-    var ring = document.createElement("div");
-    dot.className = "cursor-dot";
-    ring.className = "cursor-ring";
-    dot.setAttribute("aria-hidden", "true");
-    ring.setAttribute("aria-hidden", "true");
-    document.body.appendChild(dot);
-    document.body.appendChild(ring);
-    var mx = -100, my = -100, rx = -100, ry = -100;
-    document.addEventListener("mousemove", function (e) {
-      mx = e.clientX;
-      my = e.clientY;
-      dot.style.transform = "translate(" + mx + "px," + my + "px)";
-      document.body.classList.add("cursor-on");
-      var interactive = e.target.closest && e.target.closest("a, button, .tilt, .chip");
-      document.body.classList.toggle("cursor-hover", !!interactive);
-    });
-    document.addEventListener("mouseleave", function () {
-      document.body.classList.remove("cursor-on");
-    });
-    document.addEventListener("mousedown", function () {
-      document.body.classList.add("cursor-down");
-    });
-    document.addEventListener("mouseup", function () {
-      document.body.classList.remove("cursor-down");
-    });
-    (function follow() {
-      rx += (mx - rx) * 0.18;
-      ry += (my - ry) * 0.18;
-      ring.style.transform = "translate(" + rx.toFixed(1) + "px," + ry.toFixed(1) + "px)";
-      requestAnimationFrame(follow);
-    })();
+  if (reduced) {
+    root.classList.remove("intro");
+    return;
   }
 
-  // ---- Fond animé : constellation de particules ----
+  // ---------- Texte qui se déchiffre ----------
+  var GLYPHS = "!<>-_\\/[]{}=+*^?#01ABCDEFXZ";
+  function scramble(el, duration) {
+    if (el.dataset.scrambled) return;
+    el.dataset.scrambled = "1";
+    if (!el.hasAttribute("aria-label") && /^H[1-3]$/.test(el.tagName)) {
+      el.setAttribute("aria-label", el.textContent.replace(/\s+/g, " ").trim());
+    }
+    var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
+    var nodes = [];
+    while (walker.nextNode()) {
+      if (walker.currentNode.textContent.trim()) nodes.push(walker.currentNode);
+    }
+    var items = nodes.map(function (n) {
+      var text = n.textContent;
+      return {
+        node: n,
+        text: text,
+        ends: Array.from(text).map(function () {
+          return Math.random() * duration * 0.7 + duration * 0.3;
+        })
+      };
+    });
+    var start = performance.now();
+    (function frame(now) {
+      var t = now - start;
+      var running = false;
+      items.forEach(function (it) {
+        var out = "";
+        Array.from(it.text).forEach(function (ch, i) {
+          if (t >= it.ends[i] || /\s/.test(ch)) out += ch;
+          else {
+            running = true;
+            out += GLYPHS.charAt((Math.random() * GLYPHS.length) | 0);
+          }
+        });
+        it.node.textContent = out;
+      });
+      if (running) requestAnimationFrame(frame);
+      else {
+        items.forEach(function (it) { it.node.textContent = it.text; });
+        glitch(el);
+      }
+    })(start);
+  }
+
+  function glitch(el) {
+    el.classList.remove("glitch");
+    void el.offsetWidth;
+    el.classList.add("glitch");
+    setTimeout(function () { el.classList.remove("glitch"); }, 520);
+  }
+
+  // ---------- Cadres d'inspecteur qui construisent une section ----------
+  var BUILD_SELECTOR =
+    "h1, h2, .eyebrow, .page-title, .card, .lang-card, .stat, .highlight-item, .interest-card, .project, .resume, .item .card, .case-study .visual, .brand-row, .btn, .btn-outline, .cv-banner, .ai-tools-tag, .radial-card, .contact-split .lede";
+  function labelFor(el) {
+    var tag = el.tagName.toLowerCase();
+    var cls = (el.className && typeof el.className === "string" ? el.className : "")
+      .split(/\s+/)
+      .filter(function (c) {
+        return c && !/^(reveal|visible|tilt|tilting|stagger|in|done|glitch|from-left)$/.test(c);
+      })[0];
+    return tag + (cls ? "." + cls : "");
+  }
+
+  function build(section) {
+    var bodyRect = document.body.getBoundingClientRect();
+    var targets = [];
+    if (section.matches(BUILD_SELECTOR)) targets.push(section);
+    section.querySelectorAll(BUILD_SELECTOR).forEach(function (el) {
+      targets.push(el);
+    });
+    targets = targets.filter(function (el) {
+      var r = el.getBoundingClientRect();
+      return r.width > 20 && r.height > 12 && r.top < window.innerHeight + 200;
+    }).slice(0, 12);
+
+    targets.forEach(function (el, i) {
+      var r = el.getBoundingClientRect();
+      var box = document.createElement("div");
+      box.className = "wf-box" + (Math.random() < 0.12 ? " red" : "");
+      box.setAttribute("aria-hidden", "true");
+      box.style.left = r.left - bodyRect.left + "px";
+      box.style.top = r.top - bodyRect.top + "px";
+      box.style.width = r.width + "px";
+      box.style.height = r.height + "px";
+      box.style.setProperty("--d", i * 70 + "ms");
+      box.innerHTML = "<b>" + labelFor(el) + " · " + Math.round(r.width) + "×" + Math.round(r.height) + "</b>";
+      document.body.appendChild(box);
+      setTimeout(function () { box.remove(); }, 1300 + i * 70);
+    });
+
+    // Ligne de repère rouge le long de la section
+    var sr = section.getBoundingClientRect();
+    if (sr.height > 40) {
+      var guide = document.createElement("div");
+      guide.className = "wf-guide";
+      guide.setAttribute("aria-hidden", "true");
+      guide.style.left = sr.left - bodyRect.left - 12 + "px";
+      guide.style.top = sr.top - bodyRect.top + "px";
+      guide.style.height = sr.height + "px";
+      document.body.appendChild(guide);
+      setTimeout(function () { guide.remove(); }, 1400);
+    }
+
+    section.querySelectorAll("h2, .eyebrow, .page-title").forEach(function (h) {
+      scramble(h, 700);
+    });
+  }
+
+  // ---------- Apparitions en cascade dans les grilles ----------
+  var staggerEls = document.querySelectorAll(
+    ".lang-grid, .interest-grid, .about-highlights, .stats-row, .radial-grid, .secondary-projects, .stat-chips, .contact-split .cards"
+  );
+  staggerEls.forEach(function (grid) {
+    grid.classList.add("stagger");
+    Array.prototype.forEach.call(grid.children, function (child, i) {
+      child.style.setProperty("--si", i);
+    });
+  });
+
+  // Éléments des pages internes qui n'avaient pas d'apparition
+  document.querySelectorAll(".project, .resume, .item, .case-study, .card").forEach(function (el) {
+    if (el.closest(".reveal") || el.closest(".stagger")) return;
+    el.classList.add("reveal");
+    if (el.classList.contains("item")) el.classList.add("from-left");
+  });
+
+  // ---------- Démarrage de la page (après l'intro s'il y en a une) ----------
+  var started = false;
+  function startPage() {
+    if (started) return;
+    started = true;
+    root.classList.remove("intro");
+
+    onVisible(staggerEls, function (grid) {
+      grid.classList.add("in");
+      setTimeout(function () { grid.classList.add("done"); }, 700 + grid.children.length * 80);
+    });
+
+    // Chaque section se construit quand elle arrive à l'écran
+    var sections = document.querySelectorAll(
+      "#main > .section, #main > .stats-row, #main > .split-hero, .container > .section, .container > .case-study, .container > .project, .container > .resume, .container > .item, .container .timeline .item, .container > .contact-split, .container > .page-title, .secondary-projects > *"
+    );
+    onVisible(sections, function (sec) {
+      sec.classList.add("visible");
+      build(sec);
+    }, 0.2);
+
+    onVisible(document.querySelectorAll(".reveal"), function (el) {
+      el.classList.add("visible");
+    });
+
+    document.querySelectorAll(".split-hero h1, h1.page-title, .contact-split h1").forEach(function (h) {
+      scramble(h, 1000);
+    });
+  }
+
+  // ---------- Transitions entre les pages ----------
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest("a");
+    if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    if (a.target === "_blank" || a.hasAttribute("download")) return;
+    var href = a.getAttribute("href") || "";
+    if (!href || href.charAt(0) === "#" || /^(mailto:|tel:|javascript:)/i.test(href) || /\.pdf($|\?)/i.test(href)) return;
+    if (a.origin !== window.location.origin) return;
+    if (a.pathname === window.location.pathname && a.hash) return;
+    e.preventDefault();
+    document.body.classList.add("page-leave");
+    setTimeout(function () { window.location.href = a.href; }, 260);
+  });
+  window.addEventListener("pageshow", function (e) {
+    if (e.persisted) document.body.classList.remove("page-leave");
+  });
+
+  // ---------- Curseurs pixel colorés (canvas) ----------
   var canvas = document.createElement("canvas");
-  canvas.className = "bg-canvas";
+  canvas.className = "pixel-canvas";
   canvas.setAttribute("aria-hidden", "true");
   document.body.insertBefore(canvas, document.body.firstChild);
   var ctx = canvas.getContext("2d");
-  if (!ctx) return;
-  var W, H, dpr, particles = [];
+  var W = 0, H = 0, dpr = 1;
+  var COLORS = ["#3d7bff", "#ff8a1f", "#3ddc84", "#ff4d8d", "#ffd23d", "#38d9f5", "#a77bff"];
+  // Flèche de curseur en pixel art : 1 = couleur, 2 = reflet clair
+  var ARROW = [
+    "1.......",
+    "11......",
+    "121.....",
+    "1221....",
+    "12221...",
+    "122221..",
+    "1222221.",
+    "12222221",
+    "1221111.",
+    "121.11..",
+    "11...11.",
+    "1....11."
+  ];
+  var CHEVRON = ["1..", ".1.", "..1", ".1.", "1.."];
+  var sprites = [];
   var mouse = { x: -9999, y: -9999 };
-  var LINK = 130;
-  var colors = ["139,92,246", "236,72,153", "198,255,59"];
 
   function resize() {
     dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -531,25 +533,43 @@ document.addEventListener("DOMContentLoaded", function () {
     canvas.width = W * dpr;
     canvas.height = H * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    var target = Math.round(Math.min(80, (W * H) / 16000));
-    while (particles.length < target) {
-      particles.push({
-        x: Math.random() * W,
-        y: Math.random() * H,
-        vx: (Math.random() - 0.5) * 0.35,
-        vy: (Math.random() - 0.5) * 0.35,
-        r: Math.random() * 1.6 + 0.6,
-        c: colors[Math.random() < 0.08 ? 2 : Math.random() < 0.5 ? 0 : 1]
-      });
-    }
-    particles.length = target;
+    ctx.imageSmoothingEnabled = false;
   }
   resize();
   window.addEventListener("resize", resize);
-  window.addEventListener("mousemove", function (e) {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-  });
+
+  function spawn(x, y, speed, life, kind) {
+    var a = Math.random() * Math.PI * 2;
+    var s = speed * (0.5 + Math.random());
+    sprites.push({
+      x: x, y: y,
+      vx: Math.cos(a) * s,
+      vy: Math.sin(a) * s,
+      color: COLORS[(Math.random() * COLORS.length) | 0],
+      kind: kind || (Math.random() < 0.55 ? "arrow" : "streak"),
+      px: Math.random() < 0.5 ? 2 : 3,
+      life: life,
+      max: life,
+      wobble: Math.random() * 6
+    });
+  }
+
+  var ambient = W < 700 ? 7 : 14;
+  for (var k = 0; k < ambient; k++) {
+    spawn(Math.random() * W, Math.random() * H, 0.9, Infinity);
+  }
+
+  function drawPattern(p, rows, alpha) {
+    ctx.globalAlpha = alpha;
+    for (var r = 0; r < rows.length; r++) {
+      for (var c = 0; c < rows[r].length; c++) {
+        var ch = rows[r].charAt(c);
+        if (ch === ".") continue;
+        ctx.fillStyle = ch === "2" ? "rgba(255,255,255,0.85)" : p.color;
+        ctx.fillRect(c * p.px, r * p.px, p.px, p.px);
+      }
+    }
+  }
 
   var running = true;
   document.addEventListener("visibilitychange", function () {
@@ -560,52 +580,188 @@ document.addEventListener("DOMContentLoaded", function () {
   function draw() {
     if (!running) return;
     ctx.clearRect(0, 0, W, H);
-    for (var i = 0; i < particles.length; i++) {
-      var p = particles[i];
+    for (var i = sprites.length - 1; i >= 0; i--) {
+      var p = sprites[i];
+      // Les curseurs s'écartent de la souris
+      var dx = p.x - mouse.x, dy = p.y - mouse.y;
+      var d2 = dx * dx + dy * dy;
+      if (d2 < 120 * 120 && d2 > 1) {
+        var f = 0.35 / Math.sqrt(d2);
+        p.vx += dx * f * 0.08;
+        p.vy += dy * f * 0.08;
+      }
+      if (p.life === Infinity) {
+        var sp = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+        if (sp > 1.6) { p.vx *= 0.97; p.vy *= 0.97; }
+      } else {
+        p.vx *= 0.975;
+        p.vy *= 0.975;
+        p.life--;
+        if (p.life <= 0) { sprites.splice(i, 1); continue; }
+      }
       p.x += p.vx;
       p.y += p.vy;
-      if (p.x < -20) p.x = W + 20;
-      if (p.x > W + 20) p.x = -20;
-      if (p.y < -20) p.y = H + 20;
-      if (p.y > H + 20) p.y = -20;
-
-      // La souris attire doucement les particules proches
-      var dxm = mouse.x - p.x, dym = mouse.y - p.y;
-      var dm = Math.sqrt(dxm * dxm + dym * dym);
-      if (dm < 180) {
-        p.x += dxm * 0.006;
-        p.y += dym * 0.006;
-        ctx.strokeStyle = "rgba(236,72,153," + (1 - dm / 180) * 0.35 + ")";
-        ctx.lineWidth = 0.8;
-        ctx.beginPath();
-        ctx.moveTo(p.x, p.y);
-        ctx.lineTo(mouse.x, mouse.y);
-        ctx.stroke();
+      if (p.life === Infinity) {
+        if (p.x < -40) p.x = W + 40;
+        if (p.x > W + 40) p.x = -40;
+        if (p.y < -40) p.y = H + 40;
+        if (p.y > H + 40) p.y = -40;
       }
-
-      for (var j = i + 1; j < particles.length; j++) {
-        var q = particles[j];
-        var dx = p.x - q.x, dy = p.y - q.y;
-        var d2 = dx * dx + dy * dy;
-        if (d2 < LINK * LINK) {
-          ctx.strokeStyle = "rgba(139,92,246," + (1 - Math.sqrt(d2) / LINK) * 0.22 + ")";
-          ctx.lineWidth = 0.6;
-          ctx.beginPath();
-          ctx.moveTo(p.x, p.y);
-          ctx.lineTo(q.x, q.y);
-          ctx.stroke();
+      var alpha = p.life === Infinity ? 0.9 : Math.min(1, p.life / (p.max * 0.4));
+      var angle = Math.atan2(p.vy, p.vx);
+      ctx.save();
+      ctx.translate(Math.round(p.x), Math.round(p.y));
+      if (p.kind === "arrow") {
+        // La pointe du curseur (en haut à gauche) regarde vers la direction
+        ctx.rotate(angle + Math.PI * 0.75);
+        drawPattern(p, ARROW, alpha);
+      } else {
+        ctx.rotate(angle);
+        for (var n = 0; n < 4; n++) {
+          ctx.save();
+          ctx.translate(-n * p.px * 4, 0);
+          drawPattern(p, CHEVRON, alpha * (1 - n * 0.22));
+          ctx.restore();
         }
       }
-
-      ctx.fillStyle = "rgba(" + p.c + ",0.85)";
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.restore();
     }
+    ctx.globalAlpha = 1;
     requestAnimationFrame(draw);
   }
-  requestAnimationFrame(function () {
-    canvas.classList.add("ready");
-    draw();
+  requestAnimationFrame(draw);
+
+  window.addEventListener("mousemove", function (e) {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  });
+
+  // Un clic n'importe où fait jaillir quelques curseurs
+  document.addEventListener("pointerdown", function (e) {
+    if (root.classList.contains("intro")) return;
+    for (var b = 0; b < 7; b++) spawn(e.clientX, e.clientY, 4, 70 + Math.random() * 40);
+  });
+
+  // ---------- Écran d'intro (première visite de la session) ----------
+  if (root.classList.contains("intro")) {
+    var screen = document.createElement("div");
+    screen.className = "intro-screen";
+    screen.innerHTML =
+      '<div class="intro-inner">' +
+      '<button class="intro-btn" type="button" aria-label="' + (isEN ? "Enter the site" : "Entrer sur le site") + '">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 3v8"/><path d="M6.3 7.4a8 8 0 1 0 11.4 0"/></svg>' +
+      "</button>" +
+      '<span class="intro-hint"><b>siaci.dev</b> · ' + (isEN ? "click to boot" : "cliquer pour démarrer") + "</span>" +
+      "</div>";
+    document.body.appendChild(screen);
+    var introBtn = screen.querySelector(".intro-btn");
+    introBtn.focus({ preventScroll: true });
+
+    var enter = function () {
+      if (screen.classList.contains("gone")) return;
+      try { sessionStorage.setItem("introSeen", "1"); } catch (e) {}
+      var r = introBtn.getBoundingClientRect();
+      var cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      for (var b = 0; b < 46; b++) spawn(cx, cy, 9, 90 + Math.random() * 70);
+      screen.classList.add("gone");
+      setTimeout(function () {
+        startPage();
+        screen.remove();
+      }, 450);
+    };
+    introBtn.addEventListener("click", enter);
+    document.addEventListener("keydown", function onKey(e) {
+      if (e.key === "Escape") { enter(); document.removeEventListener("keydown", onKey); }
+    });
+    setTimeout(enter, 5000); // démarre tout seul si personne ne clique
+  } else {
+    startPage();
+  }
+
+  // ---------- Interactions à la souris (ordinateurs) ----------
+  if (!finePointer) return;
+
+  // Cartes inclinables en 3D
+  document.querySelectorAll(".lang-card, .interest-card, .radial-card, .project, .highlight-item, .case-study .visual")
+    .forEach(function (el) {
+      el.classList.add("tilt");
+      el.addEventListener("mousemove", function (e) {
+        var r = el.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width - 0.5;
+        var y = (e.clientY - r.top) / r.height - 0.5;
+        el.classList.add("tilting");
+        el.style.transform = "perspective(700px) rotateX(" + (-y * 8).toFixed(2) + "deg) rotateY(" + (x * 8).toFixed(2) + "deg) translateY(-4px)";
+      });
+      el.addEventListener("mouseleave", function () {
+        el.classList.remove("tilting");
+        el.style.transform = "";
+      });
+    });
+
+  // Boutons magnétiques
+  document.querySelectorAll(".btn, .btn-outline, .to-top").forEach(function (btn) {
+    btn.addEventListener("mousemove", function (e) {
+      var r = btn.getBoundingClientRect();
+      btn.style.transform = "translate(" + (e.clientX - r.left - r.width / 2) * 0.22 + "px," + (e.clientY - r.top - r.height / 2) * 0.3 + "px)";
+    });
+    btn.addEventListener("mouseleave", function () {
+      btn.style.transform = "";
+    });
+  });
+
+  // Parallaxe de la photo sur l'accueil
+  var hero = document.querySelector(".split-hero");
+  var heroVisual = hero && hero.querySelector(".visual");
+  if (heroVisual) {
+    hero.addEventListener("mousemove", function (e) {
+      var r = hero.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width - 0.5;
+      var y = (e.clientY - r.top) / r.height - 0.5;
+      heroVisual.style.transform = "translate(" + x * 20 + "px," + y * 20 + "px) rotateY(" + x * 10 + "deg) rotateX(" + -y * 10 + "deg)";
+    });
+    hero.addEventListener("mouseleave", function () {
+      heroVisual.style.transform = "";
+    });
+  }
+
+  // Inspecteur : un cadre se cale sur l'élément survolé, coordonnées près du curseur
+  var inspect = document.createElement("div");
+  inspect.className = "inspect-box";
+  inspect.setAttribute("aria-hidden", "true");
+  inspect.innerHTML = "<b></b>";
+  var inspectLabel = inspect.firstChild;
+  var coords = document.createElement("div");
+  coords.className = "cursor-coords";
+  coords.setAttribute("aria-hidden", "true");
+  document.body.appendChild(inspect);
+  document.body.appendChild(coords);
+  var hovered = null;
+
+  function placeInspect() {
+    if (!hovered) return;
+    var r = hovered.getBoundingClientRect();
+    inspect.style.transform = "translate(" + (r.left - 4) + "px," + (r.top - 4) + "px)";
+    inspect.style.width = r.width + 8 + "px";
+    inspect.style.height = r.height + 8 + "px";
+    inspectLabel.textContent = labelFor(hovered) + " · " + Math.round(r.width) + "×" + Math.round(r.height);
+  }
+
+  document.addEventListener("mousemove", function (e) {
+    document.body.classList.add("cursor-on");
+    coords.style.transform = "translate(" + (e.clientX + 16) + "px," + (e.clientY + 18) + "px)";
+    coords.textContent = "x:" + e.clientX + " y:" + (e.clientY + Math.round(window.scrollY));
+    var t = e.target.closest && e.target.closest("a, button, .chip, .lang-card, .interest-card, .highlight-item, .stat, .radial-card");
+    if (t && t.closest(".intro-screen")) t = null;
+    if (t !== hovered) {
+      hovered = t;
+      inspect.classList.toggle("on", !!t);
+      placeInspect();
+    }
+  });
+  window.addEventListener("scroll", placeInspect, { passive: true });
+  document.addEventListener("mouseleave", function () {
+    document.body.classList.remove("cursor-on");
+    inspect.classList.remove("on");
+    hovered = null;
   });
 });
